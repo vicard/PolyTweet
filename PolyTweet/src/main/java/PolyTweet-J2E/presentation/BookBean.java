@@ -14,10 +14,10 @@
  *   See the License for the specific language governing permissions and
  *   limitations under the License.
  */
-package package.presentation;
+package PolyTweet-J2E.presentation;
 
-import package.application.BookService;
-import package.entities.Book;
+import PolyTweet-J2E.application.BookService;
+import PolyTweet-J2E.entities.Book;
 
 import javax.inject.Inject;
 import javax.inject.Named;
