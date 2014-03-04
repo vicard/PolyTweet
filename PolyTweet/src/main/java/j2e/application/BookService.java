@@ -14,9 +14,9 @@
  *   See the License for the specific language governing permissions and
  *   limitations under the License.
  */
-package PolyTweet-J2E.application;
+package j2e.application;
 
-import PolyTweet-J2E.entities.Book;
+import j2e.entities.Book;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;

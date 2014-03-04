@@ -14,7 +14,7 @@
  *   See the License for the specific language governing permissions and
  *   limitations under the License.
  */
-package PolyTweet-J2E.entities;
+package j2e.entities;
 
 import javax.persistence.*;
 
