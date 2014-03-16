@@ -53,7 +53,7 @@ public class Utilisateur implements Serializable {
 	
 	 Set<Message> consulterMessages(){
 		 
-		return 0;
+		return null;
 	}
 
 }
