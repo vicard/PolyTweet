@@ -11,40 +11,44 @@ public class Utilisateur implements Serializable {
 	
 	public String login;
 	
+	
+	public Canal canalCourant;
+	
 	public Utilisateur(String login){
 		this.login=login;
 	}
 	
+
 	void ajouterMessage(Message message){
-		
+		canalCourant.ajouterMessage(message);
 	}
 	
-	void editerMessage(Message message){
-		
+	void editerMessage(Message message) throws NotAllowedException{
+		throw new NotAllowedException("Vous n'avez pas les droits suffisants pour effectuer cet action");
 	}
 	
-	void supprimerMessage(Message message){
-		
+	void supprimerMessage(Message message) throws NotAllowedException{
+		throw new NotAllowedException("Vous n'avez pas les droits suffisants pour effectuer cet action");
 	}
 	
-	void ajouterModerateur(Moderateur moderateur){
-	
+	void ajouterModerateur(Moderateur moderateur) throws NotAllowedException{
+		throw new NotAllowedException("Vous n'avez pas les droits suffisants pour effectuer cet action");
 	}
 	
-	void supprimerModerateur(Moderateur moderateur){
-	
+	void supprimerModerateur(Moderateur moderateur) throws NotAllowedException{
+		throw new NotAllowedException("Vous n'avez pas les droits suffisants pour effectuer cet action");
 	}
 	
 	void demanderAbonnement(Utilisateur utilisateur){
-		
+		canalCourant.demanderAbonnement(utilisateur);
 	}
 	
-	void accepterAbonne(Utilisateur utilisateur){
-		
+	void accepterAbonne(Utilisateur utilisateur) throws NotAllowedException{
+		throw new NotAllowedException("Vous n'avez pas les droits suffisants pour effectuer cet action");
 	}
 	
-	void supprimerAbonne(Utilisateur utilisateur){
-		
+	void supprimerAbonne(Utilisateur utilisateur) throws NotAllowedException{
+		throw new NotAllowedException("Vous n'avez pas les droits suffisants pour effectuer cet action");
 	}
 	
 	void refuserAbonne(Utilisateur utilisateur) throws NotAllowedException{
@@ -53,7 +57,11 @@ public class Utilisateur implements Serializable {
 	
 	 Set<Message> consulterMessages(){
 		 
-		return null;
+		return canalCourant.consulterMessages();
+	}
+	 
+	void supprimerCanal() throws NotAllowedException{
+		throw new NotAllowedException("Vous n'avez pas les droits suffisants pour effectuer cet action");
 	}
 
 }

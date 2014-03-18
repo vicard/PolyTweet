@@ -82,6 +82,10 @@ public class Canal implements Serializable {
 		this.attente.remove(utilisateur);
 	}
 	
+	void supprimerCanal(){
+		
+	}
+	
 	 Set<Message> consulterMessages(){
 		 
 		return null;
