@@ -1,6 +1,6 @@
 package j2e.domain;
 
-import java.util.List;
+import java.util.Set;
 
 import j2e.entities.Moderateur;
 import j2e.entities.Proprietaire;
@@ -12,5 +12,5 @@ public interface UtilisateurFinder {
 	public Moderateur findModerateurByLogin(String login);
 	public Utilisateur findUtilisateurByLogin(String login);
 	public Utilisateur findAttenteByLogin(String login);
-	public List<Utilisateur> findAllAttente();
+	public Set<Utilisateur> findAllAttente();
 }
