@@ -1,16 +1,16 @@
 package j2e.entities;
 
-import j2e.application.PolyTweet;
 import j2e.application.TypeCanal;
+
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -21,73 +21,122 @@ public class Canal implements Serializable {
 	private static final long serialVersionUID = 1L;
     
     @Id
-    public String tag;
+    @Column(name = "tag")
+    private String tag;
 
     @Column(name = "type")
-    public TypeCanal type;
+    private TypeCanal type;
     
-    @ManyToOne
-    public PolyTweet polytweet;
-    
-    @OneToMany
-    public Set<Message> messages = new HashSet<Message>();
+    @OneToMany(mappedBy="canal")
+    private Set<Message> messages;
 
-    @ManyToMany
-    public Set<Utilisateur> abonnes = new HashSet<Utilisateur>();
+    @ManyToMany(fetch=FetchType.LAZY)
+    private Set<Utilisateur> abonnes;
     
-    @ManyToMany
-    public Set<Utilisateur> attente = new HashSet<Utilisateur>();
+    @ManyToMany(fetch=FetchType.LAZY)
+    private Set<Utilisateur> attente;
 
-    @ManyToMany
-    public Set<Moderateur> moderateurs = new HashSet<Moderateur>();
+    @ManyToMany(fetch=FetchType.LAZY)
+    private Set<Utilisateur> moderateurs;
     
-    @ManyToMany
-    public Set<Proprietaire> proprietaires = new HashSet<Proprietaire>();
+    @ManyToMany(fetch=FetchType.LAZY)
+    private Set<Utilisateur> proprietaires;
     
-    
-	void ajouterMessage(Message message){
+    public Canal(String tag, TypeCanal type, Utilisateur createur) {
+		this.tag = tag;
+		this.type = type;
+	    messages = new HashSet<Message>();
+	    abonnes = new HashSet<Utilisateur>();
+	    abonnes.add(createur);
+	    attente = new HashSet<Utilisateur>();
+	    moderateurs = new HashSet<Utilisateur>();
+	    moderateurs.add(createur);
+	    proprietaires = new HashSet<Utilisateur>();
+	    proprietaires.add(createur);
+	}
+
+	public String getTag() {
+		return tag;
+	}
+        
+	public TypeCanal getType() {
+		return type;
+	}
+
+	public void setType(TypeCanal type) {
+		this.type = type;
+	}
+
+	public Set<Message> consulterMessages(){
+		return messages;
+	}
+	
+	public void ajouterMessage(Message message){
         this.messages.add(message);
 	}
 	
-	void editerMessage(Message message){
-		
-	}
-	
-	void supprimerMessage(Message message){
+	public void supprimerMessage(Message message){
 		this.messages.remove(message);
+	}	
+
+	public Set<Utilisateur> getAttente() {
+		return attente;
 	}
-	
-	void ajouterModerateur(Moderateur moderateur){
-		this.moderateurs.add(moderateur);
-	}
-	
-	void supprimerModerateur(Moderateur moderateur){
-		this.moderateurs.remove(moderateur);
-	}
-	
-	void demanderAbonnement(Utilisateur utilisateur){
+
+	public void demanderAbonnement(Utilisateur utilisateur){
 		this.attente.add(utilisateur);
 	}
 	
-	void accepterAbonne(Utilisateur utilisateur){
+	public void accepterAbonne(Utilisateur utilisateur){
 		this.attente.remove(utilisateur);
 		this.abonnes.add(utilisateur);
 	}
 	
-	void supprimerAbonne(Utilisateur utilisateur){
+	public void refuserAbonne(Utilisateur utilisateur) {
+		this.attente.remove(utilisateur);
+	}	
+	
+	public void supprimerAbonne(Utilisateur utilisateur){
 		this.abonnes.remove(utilisateur);
 	}
-	
-	void refuserAbonne(Utilisateur utilisateur) {
-		this.attente.remove(utilisateur);
+
+	public Set<Utilisateur> getAbonnes() {
+		return abonnes;
+	}
+
+	public Set<Utilisateur> getModerateurs() {
+		return moderateurs;
+	}
+
+	public void ajouterModerateur(Utilisateur moderateur){
+		this.moderateurs.add(moderateur);
 	}
 	
-	void supprimerCanal(){
-		
+	public void supprimerModerateur(Utilisateur moderateur){
+		this.moderateurs.remove(moderateur);
 	}
-	
-	 Set<Message> consulterMessages(){
-		 
-		return null;
+
+	public Set<Utilisateur> getProprietaires() {
+		return proprietaires;
 	}
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Canal){
+            Canal c = (Canal)obj;
+            return c.getTag().equals(this.getTag());
+        }
+        return false;
+    }
+
+    @Override
+    public String toString() {
+        return "Channel{" +
+                "tag = " + tag +
+                ", type = " + type +
+                "}";
+    }
+    
 }
+
+
