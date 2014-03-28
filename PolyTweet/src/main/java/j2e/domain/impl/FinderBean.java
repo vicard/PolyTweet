@@ -1,5 +1,6 @@
 package j2e.domain.impl;
 
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
@@ -8,7 +9,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 
-
+@Stateless
 public class FinderBean<T> {
 
 	@PersistenceContext

@@ -7,10 +7,11 @@ import j2e.entities.Utilisateur;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-
+@Stateless
 public class UtilisateurManagerBean implements UtilisateurManager {
 
 	 @PersistenceContext

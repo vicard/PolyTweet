@@ -38,13 +38,13 @@ public class CanalManagerBean implements CanalManager {
 
 
 	public Canal creer(String tag, TypeCanal type, Utilisateur proprietaire) {
-		//Canal canal = finder.findCanalByTag(tag);
-		//if (canal == null) {
+		Canal canal = finder.findCanalByTag(tag);
+		if (canal == null) {
 			Canal c = new Canal(tag,type,proprietaire);
 			entityManager.persist(c);
 			return c;
-		//}
-		//return canal;
+		}
+		return canal;
 	}
 
 

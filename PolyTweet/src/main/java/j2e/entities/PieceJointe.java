@@ -21,7 +21,7 @@ public class PieceJointe implements Serializable {
 	@ManyToOne
 	@Column(name = "message")
 	private Message message;
-
+	
 	public PieceJointe(File fichier, Message message) {
 		super();
 		this.fichier = fichier;
