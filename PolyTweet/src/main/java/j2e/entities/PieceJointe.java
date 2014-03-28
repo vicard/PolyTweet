@@ -22,8 +22,9 @@ public class PieceJointe implements Serializable {
 	@Column(name = "message")
 	private Message message;
 	
+	public PieceJointe() {}
+	
 	public PieceJointe(File fichier, Message message) {
-		super();
 		this.fichier = fichier;
 		this.message = message;
 	}

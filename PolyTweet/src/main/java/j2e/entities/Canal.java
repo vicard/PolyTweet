@@ -42,6 +42,8 @@ public class Canal implements Serializable {
     @ManyToMany(fetch=FetchType.LAZY)
     private Set<Utilisateur> proprietaires;
     
+    public Canal() {}
+    
     public Canal(String tag, TypeCanal type, Utilisateur createur) {
 		this.tag = tag;
 		this.type = type;

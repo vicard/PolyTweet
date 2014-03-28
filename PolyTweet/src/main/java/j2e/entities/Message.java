@@ -41,6 +41,8 @@ public class Message implements Serializable {
 	@ManyToOne
 	@Column(name = "auteur")
 	private Utilisateur auteur;
+	
+	public Message() {}
 
 	public Message(String texte, Set<PieceJointe> piecesJointes, Canal canal,
 			Utilisateur auteur) {

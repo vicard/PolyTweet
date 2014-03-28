@@ -1,23 +1,77 @@
 package j2e.entities;
 
 import j2e.application.*;
+
 import java.io.Serializable;
 import java.util.Set;
-import java.lang.*;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "utilisateur")
 public class Utilisateur implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
-	public String login;
+	@Id
+	@Column(name = "login")
+	private String login;
 	
+	protected Canal canalCourant;
+
+	@OneToMany(mappedBy = "auteur")
+	private Set<Message> messagesEnvoyes;
 	
-	public Canal canalCourant;
+	@ManyToMany(mappedBy = "abonnees")
+	private Set<Canal> canalAbonnes;
+	
+	@ManyToMany(mappedBy = "attente")
+	private Set<Canal> canalAttente;
+	
+	@ManyToMany(mappedBy = "moderateurs")
+	private Set<Canal> canalModerateurs;
+	
+	@ManyToMany(mappedBy = "proprietaires")
+	private Set<Canal> canalProprietaires;
 	
 	public Utilisateur(String login){
 		this.login=login;
 	}
 	
+	public Utilisateur() {}
+	
+	public String getLogin() {
+		return login;
+	}
+
+	public Canal getCanalCourant() {
+		return canalCourant;
+	}
+
+	public Set<Message> getMessagesEnvoyes() {
+		return messagesEnvoyes;
+	}
+
+	public Set<Canal> getCanalAbonnes() {
+		return canalAbonnes;
+	}
+
+	public Set<Canal> getCanalAttente() {
+		return canalAttente;
+	}
+
+	public Set<Canal> getCanalModerateurs() {
+		return canalModerateurs;
+	}
+
+	public Set<Canal> getCanalProprietaires() {
+		return canalProprietaires;
+	}
 
 	void ajouterMessage(Message message){
 		canalCourant.ajouterMessage(message);

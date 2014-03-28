@@ -1,13 +1,11 @@
 package j2e.entities;
 
-
 public class Moderateur extends Utilisateur {
 
 	public Moderateur(String login) {
 		super(login);
 		
 	}
-	
 	
 	@Override
 	void supprimerMessage(Message message) {
@@ -23,7 +21,6 @@ public class Moderateur extends Utilisateur {
 	void supprimerAbonne(Utilisateur utilisateur){
 		canalCourant.supprimerAbonne(utilisateur);
 	}
-	
 	
 	@Override
 	void refuserAbonne(Utilisateur utilisateur) {
