@@ -10,11 +10,6 @@ public class Moderateur extends Utilisateur {
 	
 	
 	@Override
-	void editerMessage(Message message){
-		canalCourant.editerMessage(message);
-	}
-	
-	@Override
 	void supprimerMessage(Message message) {
 		canalCourant.supprimerMessage(message);
 	}

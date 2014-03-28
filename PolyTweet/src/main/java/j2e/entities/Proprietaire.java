@@ -19,9 +19,5 @@ public class Proprietaire extends Moderateur {
 		canalCourant.supprimerModerateur(moderateur);
 	}
 	
-	@Override
-	void supprimerCanal(){
-		canalCourant.supprimerCanal();
-	}
 
 }

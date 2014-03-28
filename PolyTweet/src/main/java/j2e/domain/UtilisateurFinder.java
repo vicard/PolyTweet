@@ -13,4 +13,5 @@ public interface UtilisateurFinder {
 	public Utilisateur findUtilisateurByLogin(String login);
 	public Utilisateur findAttenteByLogin(String login);
 	public Set<Utilisateur> findAllAttente();
+	
 }

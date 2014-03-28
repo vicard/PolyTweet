@@ -23,10 +23,6 @@ public class Utilisateur implements Serializable {
 		canalCourant.ajouterMessage(message);
 	}
 	
-	void editerMessage(Message message) throws NotAllowedException{
-		throw new NotAllowedException("Vous n'avez pas les droits suffisants pour effectuer cet action");
-	}
-	
 	void supprimerMessage(Message message) throws NotAllowedException{
 		throw new NotAllowedException("Vous n'avez pas les droits suffisants pour effectuer cet action");
 	}
