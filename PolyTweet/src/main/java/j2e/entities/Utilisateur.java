@@ -113,5 +113,14 @@ public class Utilisateur implements Serializable {
 	void supprimerCanal() throws NotAllowedException{
 		throw new NotAllowedException("Vous n'avez pas les droits suffisants pour effectuer cet action");
 	}
+	
+	   @Override
+	    public boolean equals(Object obj) {
+	        if (obj instanceof Utilisateur){
+	            Utilisateur u = (Utilisateur)obj;
+	            return u.getLogin().equals(this.getLogin());
+	        }
+	        return false;
+	    }
 
 }

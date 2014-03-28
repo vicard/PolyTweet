@@ -35,12 +35,12 @@ public class MessageManagerBean {
 	    }
 
 	    
-	    public Message create(long id, String text,Canal canal,List<PieceJointe>){
+	/*    public Message create(long id, String text,Canal canal,List<PieceJointe>){
 	        Message message = new Message(id, text, canal, new Date());
 	        entityManager.persist(message);
 	        return message ;
 	    }
-
+*/
 
 	    @PostConstruct
 	    public void initialize() {

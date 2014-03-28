@@ -23,20 +23,10 @@ public class CanalFinderBean extends FinderBean<Canal> implements CanalFinder  {
 	@PersistenceContext
 	private EntityManager entityManager;
 
-	   protected TypedQuery<Canal> createdQueryWithOneParameter2(String attributeName, Object value){
-	        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
-	        CriteriaQuery<Canal> criteria = builder.createQuery(Canal.class);
-	        Root<Canal> from = criteria.from(Canal.class) ;
-	        criteria.select(from);
-	        criteria.where(builder.equal(from.get(attributeName), value));
-	        TypedQuery<Canal> query = entityManager.createQuery(criteria);
-
-	        return query;
-	    }
-	
+	   
 	public Canal findCanalByTag(String tag) {
 		try {
-			return createdQueryWithOneParameter2("tag",tag).getSingleResult();
+			return createdQueryWithOneParameter("tag",tag).getSingleResult();
 		} catch (Exception ex){
 			return null;
 		}
