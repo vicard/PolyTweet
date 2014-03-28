@@ -22,19 +22,14 @@ public class UtilisateurFinderBean extends FinderBean<Utilisateur> implements Ut
 	@EJB
 	CanalFinder canalFinder;
 
-	public Proprietaire findProprietaireByLogin(String login){
+	public Utilisateur findUtilisateurByLogin(String login){
 		try {
-			return createdQueryWithOneParameter("id",id).getSingleResult();
+			return createdQueryWithOneParameter("login",login).getSingleResult();
 		} catch (Exception ex){
 			return null;
 		}
 	}
-	public Moderateur findModerateurByLogin(String login){
-		
-	}
-	public Utilisateur findUtilisateurByLogin(String login){
-		
-	}
+	
 	public Utilisateur findAttenteByLogin(String login){
 		
 	}

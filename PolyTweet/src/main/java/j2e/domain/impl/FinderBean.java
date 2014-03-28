@@ -14,12 +14,12 @@ public class FinderBean<T> {
 	@PersistenceContext
     private EntityManager entityManager;
 	
-	private T valeur;
+	protected Class<T> clazz;
 	
     protected TypedQuery<T> createdQueryWithOneParameter(String attributeName, Object value){
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
-        CriteriaQuery<T> criteria = builder.createQuery((Class<T>) valeur.getClass());
-        Root<T> from = criteria.from((Class<T>) valeur) ;
+        CriteriaQuery<T> criteria = builder.createQuery(clazz);
+        Root<T> from = criteria.from(clazz) ;
         criteria.select(from);
         criteria.where(builder.equal(from.get(attributeName), value));
         TypedQuery<T> query = entityManager.createQuery(criteria);
@@ -29,8 +29,8 @@ public class FinderBean<T> {
     
     protected TypedQuery<T> createdQuery(){
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
-        CriteriaQuery<T> criteria = builder.createQuery((Class<T>) valeur.getClass());
-        Root<T> from = criteria.from((Class<T>) valeur.getClass()) ;
+        CriteriaQuery<T> criteria = builder.createQuery(clazz);
+        Root<T> from = criteria.from(clazz) ;
         criteria.select(from);
         TypedQuery<T> query = entityManager.createQuery(criteria);
 
