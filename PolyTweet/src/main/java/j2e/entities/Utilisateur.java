@@ -27,7 +27,7 @@ public class Utilisateur implements Serializable {
 	@OneToMany(mappedBy = "auteur")
 	private Set<Message> messagesEnvoyes;
 	
-	@ManyToMany(mappedBy = "abonnees")
+	@ManyToMany(mappedBy = "abonnes")
 	private Set<Canal> canalAbonnes;
 	
 	@ManyToMany(mappedBy = "attente")
