@@ -1,6 +1,7 @@
 package j2e.entities;
 
 import java.io.File;
+import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,7 +11,9 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "piece_jointe")
-public class PieceJointe {
+public class PieceJointe implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	@Column(name = "fichier")
 	private File fichier;
