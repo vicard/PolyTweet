@@ -1,8 +1,9 @@
-package j2e.domain.impl;
+package j2e.domain;
 
+import static org.junit.Assert.*;
 import j2e.application.TypeCanal;
-import j2e.domain.CanalFinder;
-import j2e.domain.CanalManager;
+import j2e.domain.impl.CanalFinderBean;
+import j2e.domain.impl.CanalManagerBean;
 import j2e.entities.Canal;
 import j2e.entities.Utilisateur;
 
@@ -23,7 +24,7 @@ import org.junit.runner.RunWith;
 
 
 @RunWith(Arquillian.class)
-public class CanalManagerBeanTest {
+public class CanalManagerTest {
 	
 	 @EJB
 	 private CanalManager canalManager;
@@ -40,7 +41,11 @@ public class CanalManagerBeanTest {
                 .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
                 .addAsWebInfResource("META-INF/persistence.xml", "persistence.xml")
                 .addPackage(CanalManager.class.getPackage())
-                .addPackage(CanalManagerBean.class.getPackage());
+                .addPackage(CanalManagerBean.class.getPackage())
+                .addPackage(Utilisateur.class.getPackage())
+            	.addPackage(Canal.class.getPackage())
+            	.addPackage(CanalFinderBean.class.getPackage())
+            	.addPackage(CanalFinder.class.getPackage());
     }
 	
 	@Before
@@ -54,7 +59,7 @@ public class CanalManagerBeanTest {
         canal = canalManager.creer("tag",TypeCanal.PUBLIC,utilisateur);
     	//assertNull(canalFinder.findCanalByTag("tag"));
     	//assertEquals(canal.getTag(),"tag");
-    	//canalFinder.findCanalByTag("tag");
+    	//Canal found = canalFinder.findCanalByTag("tag");
     	//assertEquals(found,canal);
     }
 
@@ -65,3 +70,4 @@ public class CanalManagerBeanTest {
     }
 
 }
+
