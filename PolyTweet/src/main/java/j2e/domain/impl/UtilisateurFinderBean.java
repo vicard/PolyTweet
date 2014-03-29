@@ -17,8 +17,6 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 @Stateless
-@Local(UtilisateurFinder.class)
-@TransactionManagement(TransactionManagementType.CONTAINER)
 public class UtilisateurFinderBean extends FinderBean<Utilisateur> implements UtilisateurFinder {
 
 	@PersistenceContext

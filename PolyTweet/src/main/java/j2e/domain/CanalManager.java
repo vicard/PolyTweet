@@ -8,7 +8,7 @@ import j2e.entities.Utilisateur;
 public interface CanalManager {
 	
 	public boolean supprimer(String tag);
-	public Canal creer(String tag,TypeCanal type, Utilisateur proprietaire);
+	public Canal creer(String tag,TypeCanal type, String proprietaireId);
 	public boolean ajouterMessage(Message message, Canal canal);
 	
 

@@ -7,20 +7,11 @@ import j2e.entities.Utilisateur;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
-import javax.ejb.Local;
 import javax.ejb.Stateless;
-import javax.ejb.TransactionAttribute;
-import javax.ejb.TransactionAttributeType;
-import javax.ejb.TransactionManagement;
-import javax.ejb.TransactionManagementType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.hsqldb.rights.UserManager;
-
 @Stateless
-@Local(UtilisateurManager.class)
-@TransactionManagement(TransactionManagementType.CONTAINER)
 public class UtilisateurManagerBean implements UtilisateurManager {
 
 	 @PersistenceContext
@@ -29,7 +20,6 @@ public class UtilisateurManagerBean implements UtilisateurManager {
 	    @EJB
 	    UtilisateurFinder finder;
 
-	    @TransactionAttribute(TransactionAttributeType.REQUIRED)
 	    public boolean delete(String login) {
 	        Utilisateur utilisateur = finder.findUtilisateurByLogin(login);
 	        if (utilisateur != null){
@@ -39,7 +29,6 @@ public class UtilisateurManagerBean implements UtilisateurManager {
 	        return false;
 	    }
 
-	    @TransactionAttribute(TransactionAttributeType.REQUIRED)
 	    public Utilisateur create(String login) {
 	        Utilisateur utilisateur = finder.findUtilisateurByLogin(login);
 	        if (utilisateur == null){

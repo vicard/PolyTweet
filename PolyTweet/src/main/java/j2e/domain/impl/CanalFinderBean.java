@@ -23,8 +23,6 @@ import javax.persistence.criteria.Root;
 
 
 @Stateless
-@Local(CanalFinder.class)
-@TransactionManagement(TransactionManagementType.CONTAINER)
 public class CanalFinderBean extends FinderBean<Canal> implements CanalFinder  {
 
 	@PersistenceContext
