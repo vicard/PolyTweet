@@ -19,11 +19,17 @@
 <persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence"
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
-    <persistence-unit name="book-pu" transaction-type="JTA">
-        <jta-data-source>bookDatabase</jta-data-source>
-        <class>j2e.entities.Book</class>
+    <persistence-unit name="polytweet-pu" transaction-type="JTA">
+        <jta-data-source>PolyTweetDatabase</jta-data-source>
+        <class>j2e.entities.Utilisateur</class>
+        <class>j2e.entities.Canal</class>
+        <class>j2e.entities.Message</class>
+        <class>j2e.entities.PieceJointe</class>
+
         <properties>
             <property name="openjpa.jdbc.SynchronizeMappings" value="buildSchema(ForeignKeys=true)"/>
+            <property name="javax.persistence.jdbc.driver" value="org.hsqldb.jdbcDriver"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:hsqldb:mem:data/hsqldb/petsource;shutdown=true"/>
         </properties>
     </persistence-unit>
 </persistence>

@@ -38,14 +38,4 @@ public class UtilisateurManagerBean implements UtilisateurManager {
 	        return utilisateur;
 	    }
 
-
-	    @PostConstruct
-	    public void initialize() {
-	        System.out.println("Initializing PetManager");
-	    }
-
-	    @PreDestroy
-	    public void cleanup() {
-	        System.out.println("Destroying PetManager");
-	    }
 }

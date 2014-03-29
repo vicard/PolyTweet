@@ -3,7 +3,6 @@ package j2e.domain;
 import j2e.application.TypeCanal;
 import j2e.entities.Canal;
 import j2e.entities.Message;
-import j2e.entities.Utilisateur;
 
 public interface CanalManager {
 	

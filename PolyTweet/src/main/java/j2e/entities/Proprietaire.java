@@ -1,6 +1,5 @@
 package j2e.entities;
 
-import j2e.application.NotAllowedException;
 
 public class Proprietaire extends Moderateur {
 

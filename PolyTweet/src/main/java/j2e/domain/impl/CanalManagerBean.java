@@ -74,16 +74,4 @@ public class CanalManagerBean implements CanalManager {
 		return true;
 	}
 
-
-
-	@PostConstruct
-	public void initialize() {
-		System.out.println("Initializing MessageManager");
-	}
-
-	@PreDestroy
-	public void cleanup() {
-		System.out.println("Destroying MessageManager");
-	}
-
 }

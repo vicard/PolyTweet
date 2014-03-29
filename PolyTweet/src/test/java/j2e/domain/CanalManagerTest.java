@@ -70,7 +70,7 @@ public class CanalManagerTest {
     	assertEquals(canal.getTag(),"tag");
     	Canal found = canalFinder.findCanalByTag("tag");
     	assertNull(found);
-    	//assertEquals(canal.getTag(),"tag");
+    	//assertEquals(found.getTag(),"tag");
     	//assertEquals(found,canal);
     	
     	//assertEquals(canal.getProprietaires().contains(utilisateur),true);

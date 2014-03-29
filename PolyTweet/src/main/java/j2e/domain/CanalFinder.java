@@ -7,6 +7,6 @@ import j2e.entities.Canal;
 public interface CanalFinder {
 
 	public Canal findCanalByTag(String tag);
-	public Set<Canal> findAllCanal();
+	//public Set<Canal> findAllCanal();
 
 }

@@ -50,16 +50,20 @@ public class Canal implements Serializable {
 		this.type = type;
 	    messages = new HashSet<Message>();
 	    abonnes = new HashSet<Utilisateur>();
-	    abonnes.add(createur);
+	   // abonnes.add(createur);
 	    attente = new HashSet<Utilisateur>();
 	    moderateurs = new HashSet<Utilisateur>();
-	    moderateurs.add(createur);
+	    //moderateurs.add(createur);
 	    proprietaires = new HashSet<Utilisateur>();
-	    proprietaires.add(createur);
+	    //proprietaires.add(createur);
 	}
 
 	public String getTag() {
 		return tag;
+	}
+	
+	public void setTag(String tag) {
+		this.tag=tag;
 	}
         
 	public TypeCanal getType() {
@@ -85,6 +89,10 @@ public class Canal implements Serializable {
 	public Set<Utilisateur> getAttente() {
 		return attente;
 	}
+	
+	public void setAttente(Set<Utilisateur> attente) {
+		this.attente=attente;
+	}
 
 	public void demanderAbonnement(Utilisateur utilisateur){
 		this.attente.add(utilisateur);
@@ -106,9 +114,17 @@ public class Canal implements Serializable {
 	public Set<Utilisateur> getAbonnes() {
 		return abonnes;
 	}
+	
+	public void setAbonnes(Set<Utilisateur> abonnes) {
+		this.abonnes=abonnes;
+	}
 
 	public Set<Utilisateur> getModerateurs() {
 		return moderateurs;
+	}
+	
+	public void setModerateurs(Set<Utilisateur> moderateurs) {
+		this.moderateurs=moderateurs;
 	}
 
 	public void ajouterModerateur(Utilisateur moderateur){
@@ -121,6 +137,10 @@ public class Canal implements Serializable {
 
 	public Set<Utilisateur> getProprietaires() {
 		return proprietaires;
+	}
+	
+	public void setProprietaires(Set<Utilisateur> proprietaires) {
+		this.proprietaires=proprietaires;
 	}
 
     @Override

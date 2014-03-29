@@ -14,7 +14,7 @@ import javax.ejb.TransactionManagementType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 @Stateless
-public class MessageFinderBean extends FinderBean<Message> implements MessageFinder {
+public class MessageFinderBean extends FinderBean implements MessageFinder {
 	
 	@PersistenceContext
 	private EntityManager entityManager;
@@ -22,15 +22,16 @@ public class MessageFinderBean extends FinderBean<Message> implements MessageFin
 	
 	public Message findMessageById(Long id) {
 		try {
-			return createdQueryWithOneParameter("id",id).getSingleResult();
+			return createdQueryWithOneParameter(Message.class,"id",id).getSingleResult();
 		} catch (Exception ex){
 			return null;
 		}
 	}
 	
 	
-    public Set<Message> findAllMessage(){
+  /*  public Set<Message> findAllMessage(){
     	List<Message> listeMessages = createdQuery().getResultList();
         return new HashSet<Message> (listeMessages);
     }
+    */
 }

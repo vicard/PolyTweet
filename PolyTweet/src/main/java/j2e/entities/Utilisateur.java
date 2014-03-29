@@ -52,29 +52,57 @@ public class Utilisateur implements Serializable {
 	public String getLogin() {
 		return login;
 	}
+	
+	public void setLogin(String login){
+		this.login=login;
+	}
 
 	public Canal getCanalCourant() {
 		return canalCourant;
+	}
+	
+	public void setCanalCourant(Canal canalCourant){
+		this.canalCourant=canalCourant;
 	}
 
 	public Set<Message> getMessagesEnvoyes() {
 		return messagesEnvoyes;
 	}
+	
+	public void setMessagesEnvoyes(Set<Message> messagesEnvoyes){
+		this.messagesEnvoyes=messagesEnvoyes;
+	}
 
 	public Set<Canal> getCanalAbonnes() {
 		return canalAbonnes;
+	}
+	
+	public void setCanalAbonnes(Set<Canal> canalAbonnes){
+		this.canalAbonnes=canalAbonnes;
 	}
 
 	public Set<Canal> getCanalAttente() {
 		return canalAttente;
 	}
+	
+	public void setCanalAttente(Set<Canal> canalAttente){
+		this.canalAttente=canalAttente;
+	}
 
 	public Set<Canal> getCanalModerateurs() {
 		return canalModerateurs;
 	}
+	
+	public void setCanalModerateurs(Set<Canal> canalModerateurs){
+		this.canalModerateurs=canalModerateurs;
+	}
 
 	public Set<Canal> getCanalProprietaires() {
 		return canalProprietaires;
+	}
+	
+	public void setCanalProprietaires(Set<Canal> canalProprietaires){
+		this.canalProprietaires=canalProprietaires;
 	}
 
 	void ajouterMessage(Message message){
