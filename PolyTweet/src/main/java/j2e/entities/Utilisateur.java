@@ -5,12 +5,14 @@ import j2e.application.*;
 import java.io.Serializable;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -23,21 +25,22 @@ public class Utilisateur implements Serializable {
 	@Column(name = "login")
 	private String login;
 	
+	@OneToOne(fetch=FetchType.EAGER,cascade=CascadeType.ALL)
 	protected Canal canalCourant;
 
-	@OneToMany(fetch=FetchType.LAZY,mappedBy = "auteur")
+	@OneToMany(fetch=FetchType.EAGER,cascade=CascadeType.ALL,mappedBy = "auteur")
 	private Set<Message> messagesEnvoyes;
 	
-	@ManyToMany(fetch=FetchType.LAZY,mappedBy = "abonnes")
+	@ManyToMany(fetch=FetchType.EAGER,cascade=CascadeType.ALL,mappedBy = "abonnes")
 	private Set<Canal> canalAbonnes;
 	
-	@ManyToMany(fetch=FetchType.LAZY,mappedBy = "attente")
+	@ManyToMany(fetch=FetchType.EAGER,cascade=CascadeType.ALL,mappedBy = "attente")
 	private Set<Canal> canalAttente;
 	
-	@ManyToMany(fetch=FetchType.LAZY,mappedBy = "moderateurs")
+	@ManyToMany(fetch=FetchType.EAGER,cascade=CascadeType.ALL,mappedBy = "moderateurs")
 	private Set<Canal> canalModerateurs;
 	
-	@ManyToMany(fetch=FetchType.LAZY,mappedBy = "proprietaires")
+	@ManyToMany(fetch=FetchType.EAGER,cascade=CascadeType.ALL,mappedBy = "proprietaires")
 	private Set<Canal> canalProprietaires;
 	
 	public Utilisateur(String login){

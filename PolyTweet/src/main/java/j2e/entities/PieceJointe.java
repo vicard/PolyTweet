@@ -3,6 +3,7 @@ package j2e.entities;
 import java.io.File;
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -19,7 +20,7 @@ public class PieceJointe implements Serializable {
 	@Column(name = "fichier")
 	private File fichier;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER,cascade=CascadeType.ALL)
 	@Column(name = "message")
 	private Message message;
 	

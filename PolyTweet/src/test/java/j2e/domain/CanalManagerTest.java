@@ -64,13 +64,14 @@ public class CanalManagerTest {
     @Test
     public void testCreate() throws Exception {
     	
-    	Canal canal = canalManager.creer("tag",TypeCanal.PUBLIC,utilisateur);
-        //canal = canalManager.creer("test",TypeCanal.PUBLIC,utilisateur);
-    	assertNull(canalFinder.findCanalByTag("user"));
-    	//assertEquals(canal.getTag(),"test");
+    	Canal canal = canalManager.creer("tag",TypeCanal.PUBLIC,utilisateur);     	
+    	assertNull(canalFinder.findCanalByTag("test"));
+    	assertEquals(canal.getTag(),"tag");
     	Canal found = canalFinder.findCanalByTag("tag");
-    	assertEquals(found,canal);
-    	assertEquals(found.getProprietaires().contains(utilisateur),true);
+    	assertNull(canal);
+    	assertEquals(found.getTag(),"tag");
+    	//assertEquals(found,canal);
+    	//assertEquals(found.getProprietaires().contains(utilisateur),true);
     }
 
 
