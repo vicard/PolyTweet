@@ -6,6 +6,7 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -31,14 +32,14 @@ public class Message implements Serializable {
 	@Column(name = "date")
 	private Date date;
 	
-	@OneToMany(mappedBy = "message")
+	@OneToMany(fetch=FetchType.LAZY,mappedBy = "message")
 	private Set<PieceJointe> piecesJointes;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@Column(name = "canal")
 	private Canal canal;
 
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.LAZY)
 	@Column(name = "auteur")
 	private Utilisateur auteur;
 	

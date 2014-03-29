@@ -28,19 +28,19 @@ public class Canal implements Serializable {
     @Column(name = "type")
     private TypeCanal type;
     
-    @OneToMany(mappedBy="canal")
+    @OneToMany(fetch=FetchType.LAZY,mappedBy="canal")
     private Set<Message> messages;
 
-    @ManyToMany(fetch=FetchType.LAZY,cascade=CascadeType.PERSIST)
+    @ManyToMany(fetch=FetchType.LAZY,cascade=CascadeType.ALL)
     private Set<Utilisateur> abonnes;
     
-    @ManyToMany(fetch=FetchType.LAZY)
+    @ManyToMany(fetch=FetchType.LAZY,cascade=CascadeType.ALL)
     private Set<Utilisateur> attente;
 
-    @ManyToMany(fetch=FetchType.LAZY)
+    @ManyToMany(fetch=FetchType.LAZY,cascade=CascadeType.ALL)
     private Set<Utilisateur> moderateurs;
     
-    @ManyToMany(fetch=FetchType.LAZY)
+    @ManyToMany(fetch=FetchType.LAZY,cascade=CascadeType.ALL)
     private Set<Utilisateur> proprietaires;
     
     public Canal() {}

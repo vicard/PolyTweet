@@ -7,6 +7,7 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
@@ -24,19 +25,19 @@ public class Utilisateur implements Serializable {
 	
 	protected Canal canalCourant;
 
-	@OneToMany(mappedBy = "auteur")
+	@OneToMany(fetch=FetchType.LAZY,mappedBy = "auteur")
 	private Set<Message> messagesEnvoyes;
 	
-	@ManyToMany(mappedBy = "abonnes")
+	@ManyToMany(fetch=FetchType.LAZY,mappedBy = "abonnes")
 	private Set<Canal> canalAbonnes;
 	
-	@ManyToMany(mappedBy = "attente")
+	@ManyToMany(fetch=FetchType.LAZY,mappedBy = "attente")
 	private Set<Canal> canalAttente;
 	
-	@ManyToMany(mappedBy = "moderateurs")
+	@ManyToMany(fetch=FetchType.LAZY,mappedBy = "moderateurs")
 	private Set<Canal> canalModerateurs;
 	
-	@ManyToMany(mappedBy = "proprietaires")
+	@ManyToMany(fetch=FetchType.LAZY,mappedBy = "proprietaires")
 	private Set<Canal> canalProprietaires;
 	
 	public Utilisateur(String login){
