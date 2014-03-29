@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -30,7 +31,7 @@ public class Canal implements Serializable {
     @OneToMany(mappedBy="canal")
     private Set<Message> messages;
 
-    @ManyToMany(fetch=FetchType.LAZY)
+    @ManyToMany(fetch=FetchType.LAZY,cascade=CascadeType.PERSIST)
     private Set<Utilisateur> abonnes;
     
     @ManyToMany(fetch=FetchType.LAZY)

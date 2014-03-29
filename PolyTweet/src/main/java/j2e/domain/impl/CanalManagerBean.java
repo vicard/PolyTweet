@@ -21,7 +21,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 @Stateless
-@Local(CanalManager.class)
 @TransactionManagement(TransactionManagementType.CONTAINER)
 public class CanalManagerBean implements CanalManager {
 
@@ -49,7 +48,7 @@ public class CanalManagerBean implements CanalManager {
 		Canal canal = finder.findCanalByTag(tag);
 		if (canal == null) {
 			Canal c = new Canal(tag,type,proprietaire);
-			entityManager.persist(c);
+			entityManager.merge(c);
 			return c;
 		}
 		return canal;

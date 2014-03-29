@@ -37,6 +37,8 @@ public class CanalManagerTest {
 	 
 	 @EJB
 	 private UtilisateurFinder utilisateurFinder;
+	 
+	 private Utilisateur utilisateur;
 
 	@Deployment
     public static Archive<?> createDeployment() {
@@ -54,19 +56,21 @@ public class CanalManagerTest {
 	@Before
     public void setUp() throws Exception {
 		utilisateurManager.create("toto");
-		assertEquals(utilisateurFinder.findUtilisateurByLogin("toto").getLogin(),"toto");
-		canalManager.creer("tag",TypeCanal.PUBLIC,utilisateurFinder.findUtilisateurByLogin("toto"));
+		utilisateur=utilisateurFinder.findUtilisateurByLogin("toto");
+		
+		
     }
 
     @Test
     public void testCreate() throws Exception {
     	
-    	
+    	Canal canal = canalManager.creer("tag",TypeCanal.PUBLIC,utilisateur);
         //canal = canalManager.creer("test",TypeCanal.PUBLIC,utilisateur);
-    	//assertNull(canalFinder.findCanalByTag("user"));
+    	assertNull(canalFinder.findCanalByTag("user"));
     	//assertEquals(canal.getTag(),"test");
-    	//Canal found = canalFinder.findCanalByTag("test");
-    	//assertEquals(found,canal);
+    	Canal found = canalFinder.findCanalByTag("tag");
+    	assertEquals(found,canal);
+    	assertEquals(found.getProprietaires().toArray(),canal.getProprietaires().toArray());
     }
 
 

@@ -2,6 +2,7 @@ package j2e.domain.impl;
 
 import j2e.domain.CanalFinder;
 import j2e.domain.UtilisateurFinder;
+import j2e.domain.UtilisateurManager;
 import j2e.entities.Canal;
 import j2e.entities.Moderateur;
 import j2e.entities.Proprietaire;
@@ -10,7 +11,10 @@ import j2e.entities.Utilisateur;
 import java.util.Set;
 
 import javax.ejb.EJB;
+import javax.ejb.Local;
 import javax.ejb.Stateless;
+import javax.ejb.TransactionManagement;
+import javax.ejb.TransactionManagementType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
@@ -19,6 +23,8 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 @Stateless
+@Local(UtilisateurFinder.class)
+@TransactionManagement(TransactionManagementType.CONTAINER)
 public class UtilisateurFinderBean extends FinderBean<Utilisateur> implements UtilisateurFinder {
 
 	@PersistenceContext
