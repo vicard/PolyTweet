@@ -25,9 +25,6 @@ public class Utilisateur implements Serializable {
 	@Id
 	@Column(name = "login")
 	private String login;
-	
-	@OneToOne(fetch=FetchType.EAGER,cascade=CascadeType.ALL)
-	protected Canal canalCourant;
 
 	@OneToMany(fetch=FetchType.EAGER,cascade=CascadeType.ALL,mappedBy = "auteur")
 	private Set<Message> messagesEnvoyes;
@@ -46,7 +43,6 @@ public class Utilisateur implements Serializable {
 	
 	public Utilisateur(String login){
 		this.setLogin(login);
-		//this.canalCourant=new Canal();
 		this.setCanalAbonnes(new HashSet<Canal>());
 		this.setCanalAttente(new HashSet<Canal>());
 		this.setCanalModerateurs(new HashSet<Canal>());
@@ -63,14 +59,6 @@ public class Utilisateur implements Serializable {
 	
 	public void setLogin(String login){
 		this.login=login;
-	}
-
-	public Canal getCanalCourant() {
-		return canalCourant;
-	}
-	
-	public void setCanalCourant(Canal canalCourant){
-		this.canalCourant=canalCourant;
 	}
 
 	public Set<Message> getMessagesEnvoyes() {
@@ -113,44 +101,44 @@ public class Utilisateur implements Serializable {
 		this.canalProprietaires=canalProprietaires;
 	}
 
-	void ajouterMessage(Message message){
-		canalCourant.ajouterMessage(message);
+	void ajouterMessage(Message message, Canal canal){
+		canal.ajouterMessage(message);
 	}
 	
-	void supprimerMessage(Message message) throws NotAllowedException{
+	void supprimerMessage(Message message, Canal canal) throws NotAllowedException{
 		throw new NotAllowedException("Vous n'avez pas les droits suffisants pour effectuer cet action");
 	}
 	
-	void ajouterModerateur(Moderateur moderateur) throws NotAllowedException{
+	void ajouterModerateur(Moderateur moderateur, Canal canal) throws NotAllowedException{
 		throw new NotAllowedException("Vous n'avez pas les droits suffisants pour effectuer cet action");
 	}
 	
-	void supprimerModerateur(Moderateur moderateur) throws NotAllowedException{
+	void supprimerModerateur(Moderateur moderateur, Canal canal) throws NotAllowedException{
 		throw new NotAllowedException("Vous n'avez pas les droits suffisants pour effectuer cet action");
 	}
 	
-	void demanderAbonnement(Utilisateur utilisateur){
-		canalCourant.demanderAbonnement(utilisateur);
+	void demanderAbonnement(Utilisateur utilisateur, Canal canal){
+		canal.demanderAbonnement(utilisateur);
 	}
 	
-	void accepterAbonne(Utilisateur utilisateur) throws NotAllowedException{
+	void accepterAbonne(Utilisateur utilisateur, Canal canal) throws NotAllowedException{
 		throw new NotAllowedException("Vous n'avez pas les droits suffisants pour effectuer cet action");
 	}
 	
-	void supprimerAbonne(Utilisateur utilisateur) throws NotAllowedException{
+	void supprimerAbonne(Utilisateur utilisateur, Canal canal) throws NotAllowedException{
 		throw new NotAllowedException("Vous n'avez pas les droits suffisants pour effectuer cet action");
 	}
 	
-	void refuserAbonne(Utilisateur utilisateur) throws NotAllowedException{
+	void refuserAbonne(Utilisateur utilisateur, Canal canal) throws NotAllowedException{
 		throw new NotAllowedException("Vous n'avez pas les droits suffisants pour effectuer cet action");
 	}
 	
-	 Set<Message> consulterMessages(){
+	 Set<Message> consulterMessages(Canal canal){
 		 
-		return canalCourant.consulterMessages();
+		return canal.consulterMessages();
 	}
 	 
-	void supprimerCanal() throws NotAllowedException{
+	void supprimerCanal(Canal canal) throws NotAllowedException{
 		throw new NotAllowedException("Vous n'avez pas les droits suffisants pour effectuer cet action");
 	}
 	
@@ -168,4 +156,10 @@ public class Utilisateur implements Serializable {
 	        return super.hashCode();
 	    }
 
+	   @Override
+	   public String toString() {
+		   return "Utilisateur{"
+		   		+ " login = " + login
+		   		+ "}";
+	   }
 }

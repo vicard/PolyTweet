@@ -8,22 +8,22 @@ public class Moderateur extends Utilisateur {
 	}
 	
 	@Override
-	void supprimerMessage(Message message) {
-		canalCourant.supprimerMessage(message);
+	void supprimerMessage(Message message, Canal canal) {
+		canal.supprimerMessage(message);
 	}
 	
 	@Override
-	void accepterAbonne(Utilisateur utilisateur){
-		canalCourant.accepterAbonne(utilisateur);
+	void accepterAbonne(Utilisateur utilisateur, Canal canal){
+		canal.accepterAbonne(utilisateur);
 	}
 	
 	@Override
-	void supprimerAbonne(Utilisateur utilisateur){
-		canalCourant.supprimerAbonne(utilisateur);
+	void supprimerAbonne(Utilisateur utilisateur, Canal canal){
+		canal.supprimerAbonne(utilisateur);
 	}
 	
 	@Override
-	void refuserAbonne(Utilisateur utilisateur) {
-		canalCourant.refuserAbonne(utilisateur);
+	void refuserAbonne(Utilisateur utilisateur, Canal canal) {
+		canal.refuserAbonne(utilisateur);
 	}
 }

@@ -39,4 +39,27 @@ public class PieceJointe implements Serializable {
 		return message;
 	}
 	
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof PieceJointe){
+			PieceJointe pj = (PieceJointe)obj;
+			return (pj.getFichier().equals(this.getFichier())
+					&& pj.getMessage().equals(this.getMessage()));
+		}
+		return false;
+	}
+
+	@Override
+	public int hashCode() {
+		return super.hashCode();
+	}
+
+	@Override
+	public String toString() {
+		return "PieceJointe{"
+				+ " fichier = "+ fichier
+				+ ", message = " + message 
+				+ "}";
+	}
+
 }

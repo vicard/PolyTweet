@@ -14,6 +14,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 
 @Entity
@@ -31,6 +33,7 @@ public class Message implements Serializable {
 	private String texte;
 	
 	@Column(name = "date")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date date;
 	
 	@OneToMany(fetch=FetchType.EAGER,cascade=CascadeType.ALL,mappedBy = "message")
@@ -52,7 +55,6 @@ public class Message implements Serializable {
 		this.piecesJointes = piecesJointes;
 		this.canal = canal;
 		this.auteur = auteur;
-		date = new Date();
 	}
 
 	public long getId() {
@@ -79,5 +81,25 @@ public class Message implements Serializable {
 		return auteur;
 	}
 	
-	
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof Message){
+			Message m = (Message)obj;
+			return m.getId() == this.getId();
+		}
+		return false;
+	}
+
+	@Override
+	public int hashCode() {
+		return super.hashCode();
+	}
+
+	@Override
+	public String toString() {
+		return "Message{"
+				+ " id = "+id
+				+ ",auteur = " + auteur 
+				+ "}";
+	}
 }
