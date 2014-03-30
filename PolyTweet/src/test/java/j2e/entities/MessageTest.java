@@ -1,10 +1,9 @@
 package j2e.entities;
 
 import static org.junit.Assert.*;
+import j2e.application.TypeCanal;
 
 import java.util.List;
-
-import j2e.application.TypeCanal;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -26,13 +25,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(Arquillian.class)
-public class CanalTest {
+public class MessageTest {
 
 	@Deployment
 	public static Archive<?> createDeployment() {
 		return ShrinkWrap
 				.create(WebArchive.class, "test.war")
-				.addPackage(Canal.class.getPackage())
+				.addPackage(Message.class.getPackage())
 				.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
 				.addAsWebInfResource("META-INF/persistence.xml",
 						"persistence.xml");
@@ -48,57 +47,62 @@ public class CanalTest {
 	public void testAjout() throws Exception {
 		Utilisateur u1 = new Utilisateur("u1");
 		Canal c1 = new Canal("c1", TypeCanal.PUBLIC, u1);
-		Canal c2 = new Canal("c2", TypeCanal.PRIVE, u1);
-
+		Message m1 = new Message("message 1",c1,u1);
+		Message m2 = new Message("message 2",c1,u1);
 		transaction.begin();
         try {
             manager.persist(u1);
             manager.persist(c1);
-            assertTrue(manager.contains(c1)); // manager contient le canal persisté
-            assertFalse(manager.contains(new Canal("new",TypeCanal.PUBLIC,u1))); // manager ne contient pas un canal non créé
-            assertFalse(manager.contains(c2)); // manager ne contient pas un canal non persisté
-            
+            manager.persist(m1);
+            assertTrue(manager.contains(m1)); // manager contient le message persisté
+            assertFalse(manager.contains(new Message("nouveau",c1,u1))); // manager ne contient pas un message non créé
+            assertFalse(manager.contains(m2)); // manager ne contient pas un message non persisté
+
+            manager.remove(m1);
             manager.remove(c1);
             manager.remove(u1);
         } finally {
             transaction.commit();
         }
-        Utilisateur u2 = new Utilisateur("u2");
-        Canal c3 = new Canal("c3",TypeCanal.PUBLIC, u2);
+        Canal c3 = new Canal("c3",TypeCanal.PUBLIC, u1);
+		Message m3 = new Message("message 3",c1,u1);
         try {
-        	manager.persist(c3);
+        	manager.persist(m3);
         } catch (PersistenceException pe) {
         } finally {
-        	assertFalse(manager.contains(c3)); // impossible de persister c3 car u2 n'a pas été persisté avant
+        	assertFalse(manager.contains(c3)); // impossible de persister m3 car c3 n'a pas été persisté avant
         }
 	}
 
     @Test
-    public void testRechercheParTag() throws Exception {
+    public void testRechercheParCanal() throws Exception {
 		Utilisateur u1 = new Utilisateur("u1");
 		Canal c1 = new Canal("c1", TypeCanal.PUBLIC, u1);
-		
+		Message m1 = new Message("message 1",c1,u1);
         transaction.begin();
         try {
         	manager.persist(u1);
         	manager.persist(c1);
+        	manager.persist(m1);
+        	
             CriteriaBuilder builder = manager.getCriteriaBuilder();
-            CriteriaQuery<Canal> criteria = builder.createQuery(Canal.class);
-            Root<Canal> from = criteria.from(Canal.class) ;
+            CriteriaQuery<Message> criteria = builder.createQuery(Message.class);
+            Root<Message> from = criteria.from(Message.class) ;
             criteria.select(from);
-            criteria.where(builder.equal(from.get("tag"), "c1"));
-            TypedQuery<Canal> query = manager.createQuery(criteria);
-            List<Canal> result =  query.getResultList();
-            // La recherche du tag "c1" trouve 1 résultat dont le tag est "c1"
+            criteria.where(builder.equal(from.get("canal"), c1));
+            TypedQuery<Message> query = manager.createQuery(criteria);
+            List<Message> result =  query.getResultList();
+            // La recherche du canal "c1" trouve 1 résultat dont le canal "c1"
             assertEquals(result.size(),1);
-            assertEquals(result.get(0).getTag(), "c1");
+            assertEquals(result.get(0).getCanal(), c1);
             
-            criteria.where(builder.equal(from.get("tag"), "innexistant"));
+            criteria.where(builder.equal(from.get("canal"), new Canal("nouveau",TypeCanal.PRIVE,u1)));
             query = manager.createQuery(criteria);
             result =  query.getResultList();
-            // La recherche du tag "c2" trouve 0 résultat
+            // La recherche du canal "nouveau" trouve 0 résultat
             assertEquals(result.size(),0);
             
+            manager.remove(m1);
             manager.remove(c1);
             manager.remove(u1);
         } finally {
@@ -110,17 +114,22 @@ public class CanalTest {
     public void suppressionTest() throws Exception {
 		Utilisateur u1 = new Utilisateur("u1");
 		Canal c1 = new Canal("c1", TypeCanal.PUBLIC, u1);
-		    	
+		Message m1 = new Message("message 1",c1,u1);
+    	
     	transaction.begin();
     	try {
     		manager.persist(u1);
     		manager.persist(c1);
-    		assertTrue(manager.contains(c1));
+    		manager.persist(m1);
+    		assertTrue(manager.contains(m1));
+    		manager.remove(m1);
+    		assertFalse(manager.contains(m1));
+    		
     		manager.remove(c1);
-    		assertFalse(manager.contains(c1));
     		manager.remove(u1);
     	} finally {
     		transaction.commit();
     	}
     }
 }
+

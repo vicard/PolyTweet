@@ -2,6 +2,7 @@ package j2e.entities;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -50,10 +51,9 @@ public class Message implements Serializable {
 	
 	public Message() {}
 
-	public Message(String texte, Set<PieceJointe> piecesJointes, Canal canal,
-			Utilisateur auteur) {
+	public Message(String texte, Canal canal, Utilisateur auteur) {
 		this.texte = texte;
-		this.piecesJointes = piecesJointes;
+		this.piecesJointes = new HashSet<PieceJointe>();
 		this.canal = canal;
 		this.auteur = auteur;
 	}
