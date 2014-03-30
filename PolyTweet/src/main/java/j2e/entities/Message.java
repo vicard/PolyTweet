@@ -20,20 +20,20 @@ import javax.persistence.TemporalType;
 
 
 @Entity
-@Table(name = "message")
+@Table(name = "MESSAGES")
 public class Message implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id")
+	@Column(name = "MESSAGES_id")
 	private long id;
 	
-	@Column(name = "texte")
+	@Column(name = "MESSAGES_texte")
 	private String texte;
 	
-	@Column(name = "date")
+	@Column(name = "MESSAGES_date")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date date;
 	
@@ -41,11 +41,11 @@ public class Message implements Serializable {
 	private Set<PieceJointe> piecesJointes;
 	
 	@ManyToOne(fetch=FetchType.EAGER,cascade=CascadeType.ALL)
-	@JoinColumn(name = "canal")
+	@JoinColumn(name = "MESSAGES_canal")
 	private Canal canal;
 
 	@ManyToOne(fetch=FetchType.EAGER,cascade=CascadeType.ALL)
-	@JoinColumn(name = "auteur")
+	@JoinColumn(name = "MESSAGES_auteur")
 	private Utilisateur auteur;
 	
 	public Message() {}

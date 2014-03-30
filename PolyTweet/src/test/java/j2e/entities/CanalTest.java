@@ -1,11 +1,19 @@
 package j2e.entities;
 
 import static org.junit.Assert.*;
+
+import java.util.List;
+
 import j2e.application.TypeCanal;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceException;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import javax.transaction.UserTransaction;
 
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -14,11 +22,8 @@ import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
 
 @RunWith(Arquillian.class)
 public class CanalTest {
@@ -39,40 +44,59 @@ public class CanalTest {
 	@Inject
 	UserTransaction transaction;
 	
-	Utilisateur utilisateur;
-	Canal canal1;
-	Canal canal2;
-	
-	@Before
-	public void setup() throws Exception {
-		utilisateur = new Utilisateur("test");
-		canal1 = new Canal("public",TypeCanal.PUBLIC, utilisateur);
-		canal2 = new Canal("prive",TypeCanal.PRIVE, utilisateur);
-		manager.persist(utilisateur);
-		manager.persist(canal1);
-		manager.persist(canal2);
-	}
-	
-	@After
-	public void cleanup() throws Exception {
-		try { manager.detach(utilisateur); } catch (Exception e) {}
-		try { manager.detach(canal1); } catch (Exception e) {}
-		try { manager.detach(canal2); } catch (Exception e) {}
-		utilisateur=null;
-		canal1=null;
-		canal2=null;
-	}
-	
 	@Test
-	public void testAdd() throws Exception {
-		Canal test = new Canal("test", TypeCanal.PUBLIC, utilisateur);
-		manager.persist(test);
-		
-		assertTrue(manager.contains(canal1));
-		assertTrue(manager.contains(canal2));
-		assertTrue(manager.contains(utilisateur));
-		assertTrue(manager.contains(test));
+	public void testAjout() throws Exception {
+		Utilisateur u1 = new Utilisateur("u1");
+		Canal c1 = new Canal("c1", TypeCanal.PUBLIC, u1);
+		Canal c2 = new Canal("c2", TypeCanal.PRIVE, u1);
+
+		transaction.begin();
+        try {
+            manager.persist(u1);
+            manager.persist(c1);
+            assertTrue(manager.contains(c1)); // manager contient le canal persisté
+            assertFalse(manager.contains(new Canal("new",TypeCanal.PUBLIC,u1))); // manager ne contient pas un canal non créé
+            assertFalse(manager.contains(c2)); // manager ne contient pas un canal non persisté
+        } finally {
+            transaction.commit();
+        }
+        Utilisateur u2 = new Utilisateur("u2");
+        Canal c3 = new Canal("c3",TypeCanal.PUBLIC, u2);
+        try {
+        	manager.persist(c3);
+        } catch (PersistenceException pe) {
+        } finally {
+        	assertFalse(manager.contains(c3)); // impossible de persister c3 car u2 n'a pas été persisté avant
+        }
+        manager.clear();
     }
 
+    @Test
+    public void testRechercheParTag() throws Exception {
+		Utilisateur u1 = new Utilisateur("u1");
+		Canal c1 = new Canal("c1", TypeCanal.PUBLIC, u1);
+		
+        transaction.begin();
+        try {
+            CriteriaBuilder builder = manager.getCriteriaBuilder();
+            CriteriaQuery<Canal> criteria = builder.createQuery(Canal.class);
+            Root<Canal> from = criteria.from(Canal.class) ;
+            criteria.select(from);
+            criteria.where(builder.equal(from.get("tag"), "c1"));
+            TypedQuery<Canal> query = manager.createQuery(criteria);
+            List<Canal> result =  query.getResultList();
+            // La recherche du tag "c1" trouve 1 résultat dont le tag est "c1"
+            assertEquals(result.size(),1);
+            assertEquals(result.get(0).getTag(), "c1");
+            
+            criteria.where(builder.equal(from.get("tag"), "c2"));
+            query = manager.createQuery(criteria);
+            result =  query.getResultList();
+            // La recherche du tag "c2" ne trouve 0 résultat
+            assertEquals(result.size(),0);
+        } finally {
+            transaction.commit();
+        }
+    }
 	
 }

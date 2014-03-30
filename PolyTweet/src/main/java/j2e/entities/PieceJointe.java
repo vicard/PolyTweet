@@ -7,22 +7,30 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 
 @Entity
-@Table(name = "piece_jointe")
+@Table(name = "PIECESJOINTES")
 public class PieceJointe implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@Column(name = "fichier")
+	@Id
+	@Column(name = "PIECESJOINTES_id")
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private long id;
+	
+	@Column(name = "PIECESJOINTES_fichier")
 	private File fichier;
 	
 	@ManyToOne(fetch=FetchType.EAGER,cascade=CascadeType.ALL)
-	@JoinColumn(name = "message")
+	@JoinColumn(name = "PIECESJOINTES_message")
 	private Message message;
 	
 	public PieceJointe() {}
@@ -32,6 +40,10 @@ public class PieceJointe implements Serializable {
 		this.message = message;
 	}
 
+	public long getId() {
+		return id;
+	}
+	
 	public File getFichier() {
 		return fichier;
 	}
@@ -44,8 +56,7 @@ public class PieceJointe implements Serializable {
 	public boolean equals(Object obj) {
 		if (obj instanceof PieceJointe){
 			PieceJointe pj = (PieceJointe)obj;
-			return (pj.getFichier().equals(this.getFichier())
-					&& pj.getMessage().equals(this.getMessage()));
+			return pj.getId()==this.getId();
 		}
 		return false;
 	}

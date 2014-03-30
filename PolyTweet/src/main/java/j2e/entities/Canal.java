@@ -18,16 +18,16 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "canal")
+@Table(name = "CANAUX")
 public class Canal implements Serializable {
 
 	private static final long serialVersionUID = 1L;
     
     @Id
-    @Column(name = "tag")
+    @Column(name = "CANAUX_tag")
     private String tag;
 
-    @Column(name = "type")
+    @Column(name = "CANAUX_type")
     private TypeCanal type;
     
     @OneToMany(fetch=FetchType.EAGER,cascade=CascadeType.ALL,mappedBy="canal")
@@ -35,33 +35,33 @@ public class Canal implements Serializable {
 
     @ManyToMany(fetch=FetchType.EAGER,cascade=CascadeType.ALL)
     @JoinTable(
-    		name = "abonnement",
-    		joinColumns = @JoinColumn(name = "canal"),
-    		inverseJoinColumns = @JoinColumn(name = "abonne")
+    		name = "ABONNEMENTS",
+    		joinColumns = @JoinColumn(name = "ABONNEMENTS_canal"),
+    		inverseJoinColumns = @JoinColumn(name = "ABONNEMENTS_utilisateur")
     		)
     private Set<Utilisateur> abonnes;
     
     @ManyToMany(fetch=FetchType.EAGER,cascade=CascadeType.ALL)
     @JoinTable(
-    		name = "attentes",
-    		joinColumns = @JoinColumn(name = "canal"),
-    		inverseJoinColumns = @JoinColumn(name = "enAttente")
+    		name = "ATTENTES",
+    		joinColumns = @JoinColumn(name = "ATTENTES_canal"),
+    		inverseJoinColumns = @JoinColumn(name = "ATTENTES_utilisateur")
     		)
     private Set<Utilisateur> attente;
 
     @ManyToMany(fetch=FetchType.EAGER,cascade=CascadeType.ALL)
     @JoinTable(
-    		name = "moderateurs",
-    		joinColumns = @JoinColumn(name = "canal"),
-    		inverseJoinColumns = @JoinColumn(name = "moderateur")
+    		name = "MODERATEURS",
+    		joinColumns = @JoinColumn(name = "MODERATEURS_canal"),
+    		inverseJoinColumns = @JoinColumn(name = "MODERATEURS_utilisateur")
     		)
     private Set<Utilisateur> moderateurs;
     
     @ManyToMany(fetch=FetchType.EAGER,cascade=CascadeType.ALL)
     @JoinTable(
-    		name = "proprietaires",
-    		joinColumns = @JoinColumn(name = "canal"),
-    		inverseJoinColumns = @JoinColumn(name = "proprietaire")
+    		name = "PROPRIETAIRES",
+    		joinColumns = @JoinColumn(name = "PROPRIETAIRES_canal"),
+    		inverseJoinColumns = @JoinColumn(name = "PROPRIETAIRES_utilisateur")
     		)
     private Set<Utilisateur> proprietaires;
     
@@ -75,9 +75,9 @@ public class Canal implements Serializable {
 	    this.setAttente(new HashSet<Utilisateur>());
 	    this.setModerateurs(new HashSet<Utilisateur>());
 	    this.setProprietaires(new HashSet<Utilisateur>());
-	    //abonnes.add(createur);
-	    //moderateurs.add(createur);
-	    //proprietaires.add(createur);
+//	    abonnes.add(createur);
+//	    moderateurs.add(createur);
+//	    proprietaires.add(createur);
 	}
 
 	public String getTag() {
@@ -184,7 +184,7 @@ public class Canal implements Serializable {
 
     @Override
     public String toString() {
-        return "Channel{" +
+        return "Canal{" +
                 "tag = " + tag +
                 ", type = " + type +
                 "}";

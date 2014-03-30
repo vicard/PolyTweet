@@ -17,13 +17,13 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "utilisateur")
+@Table(name = "UTILISATEURS")
 public class Utilisateur implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@Column(name = "login")
+	@Column(name = "UTILISATEURS_login")
 	private String login;
 
 	@OneToMany(fetch=FetchType.EAGER,cascade=CascadeType.ALL,mappedBy = "auteur")
