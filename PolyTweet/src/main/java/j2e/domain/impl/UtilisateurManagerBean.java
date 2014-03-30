@@ -6,6 +6,9 @@ import j2e.domain.UtilisateurManager;
 import j2e.entities.Canal;
 import j2e.entities.Utilisateur;
 
+import java.util.Iterator;
+import java.util.Set;
+
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -44,7 +47,10 @@ public class UtilisateurManagerBean implements UtilisateurManager {
 	    public boolean subscribedToChannel(Utilisateur utilisateur, String tagChannel) {
 	        //if(role.compareTo(UserRole.USER_ROLE_CONNECTED) == 0){
 	            Canal canal = canalFinder.findCanalByTag(tagChannel);
-	            if(utilisateur.getCanalAbonnes().contains(canal)) return false;
+	            entityManager.merge(utilisateur);
+	            Set<Canal> canaux = canalFinder.findCanalByProprietaire(utilisateur.getLogin());
+	            System.out.println(canaux);
+	            System.out.println(utilisateur.getCanalAbonnes());
 	        
 	            canal.getAbonnes().add(utilisateur);
 	            utilisateur.getCanalAbonnes().add(canal);
