@@ -1,14 +1,18 @@
 package j2e.domain;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+
+import java.security.KeyRep.Type;
+
 import j2e.application.TypeCanal;
 import j2e.domain.impl.CanalFinderBean;
 import j2e.domain.impl.CanalManagerBean;
 import j2e.entities.Canal;
 import j2e.entities.Utilisateur;
-
-import java.util.HashSet;
 
 import javax.ejb.EJB;
 
@@ -60,6 +64,7 @@ public class CanalManagerTest {
     public void setUp() throws Exception {
 		utilisateurManager.create("toto");
 		utilisateur=utilisateurFinder.findUtilisateurByLogin("toto");
+		canalManager.creer("test",TypeCanal.PUBLIC, "toto");
 		
 		
     }
@@ -71,23 +76,26 @@ public class CanalManagerTest {
     	Canal canal = canalManager.creer("tag",TypeCanal.PUBLIC,"toto");    
     	System.out.println(canal.getProprietaires());
     	System.out.println(canal.getTag());
-    	//assertNull(canalFinder.findCanalByTag("test"));
-    	//assertEquals(canal.getTag(),"tag");
-    	HashSet<Canal> found = canalFinder.findCanalByProprietaire("toto");
-    	assertNotNull(found);
-    	//assertEquals(found.getTag(),"tag");
-    	//assertEquals(found,canal);
-    	//assertEquals(canal.getProprietaires().contains(utilisateur),true);
-    	//System.out.println(found.getTag());
-    	//System.out.println(found.getProprietaires());
-    	//System.out.println(utilisateur.getCanalProprietaires());
+    	Canal found = canalFinder.findCanalByTag("tag");
+    	assertEquals(found,canal);
+    }
+    
+    @Test
+    public void testDelete() throws Exception {
+    	assertNotNull(canalFinder.findCanalByTag("test"));
+        assertTrue(canalManager.supprimer("test"));
+        assertNull(canalFinder.findCanalByTag("test"));
+        assertFalse((canalManager.supprimer("test")));
     }
 
 
     @After
-    public void clean() throws Exception {
-        //canalManager.supprimer("tag");
+    public void cleanUp() throws Exception {
+    	utilisateurManager.delete("tag");
+        canalManager.supprimer("tag");
+        
     }
+    
 
 }
 
