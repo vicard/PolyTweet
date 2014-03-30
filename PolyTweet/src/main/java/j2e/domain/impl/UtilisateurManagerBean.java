@@ -14,7 +14,7 @@ import javax.persistence.PersistenceContext;
 @Stateless
 public class UtilisateurManagerBean implements UtilisateurManager {
 
-	 @PersistenceContext
+	 @PersistenceContext(unitName = "polytweet-pu")
 	    EntityManager entityManager;
 
 	    @EJB

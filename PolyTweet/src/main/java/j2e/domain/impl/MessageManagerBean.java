@@ -20,7 +20,7 @@ import javax.persistence.PersistenceContext;
 @Stateless
 public class MessageManagerBean {
 	
-	 @PersistenceContext
+	 @PersistenceContext(unitName = "polytweet-pu")
 	    EntityManager entityManager;
 
 	    @EJB

@@ -23,7 +23,7 @@ import javax.persistence.PersistenceContext;
 @Stateless
 public class CanalManagerBean implements CanalManager {
 
-	@PersistenceContext
+	@PersistenceContext(unitName = "polytweet-pu")
 	EntityManager entityManager;
 
 	@EJB
@@ -47,15 +47,21 @@ public class CanalManagerBean implements CanalManager {
 	
 	public Canal creer(String tag, TypeCanal type, String proprietaireId) {
 		Canal canal = finder.findCanalByTag(tag);
+		Utilisateur proprietaire = null;
 		if (canal == null) {
-			Utilisateur proprietaire = utilisateurFinder.findUtilisateurByLogin(proprietaireId);
+			proprietaire = utilisateurFinder.findUtilisateurByLogin(proprietaireId);
 			canal = new Canal(tag,type,proprietaire);
+			
 			proprietaire.getCanalProprietaires().add(canal);
 			proprietaire.getCanalModerateurs().add(canal);
 			proprietaire.getCanalAbonnes().add(canal);
-			entityManager.persist(proprietaire);
 			entityManager.persist(canal);
+			entityManager.persist(proprietaire);
+			//entityManager.merge(canal);
+			//entityManager.merge(proprietaire);
+			
 		}
+		
 		return canal;
 	}
 

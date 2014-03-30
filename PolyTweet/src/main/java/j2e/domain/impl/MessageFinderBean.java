@@ -16,10 +16,6 @@ import javax.persistence.PersistenceContext;
 @Stateless
 public class MessageFinderBean extends FinderBean implements MessageFinder {
 	
-	@PersistenceContext
-	private EntityManager entityManager;
-
-	
 	public Message findMessageById(Long id) {
 		try {
 			return createdQueryWithOneParameter(Message.class,"id",id).getSingleResult();
