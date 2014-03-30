@@ -48,10 +48,8 @@ public class UtilisateurManagerBean implements UtilisateurManager {
 	        //if(role.compareTo(UserRole.USER_ROLE_CONNECTED) == 0){
 	            Canal canal = canalFinder.findCanalByTag(tagChannel);
 	            entityManager.merge(utilisateur);
-	            Set<Canal> canaux = canalFinder.findCanalByProprietaire(utilisateur.getLogin());
-	            System.out.println(canaux);
 	            System.out.println(utilisateur.getCanalAbonnes());
-	        
+	            for(Canal c : utilisateur.getCanalAbonnes()) if(c.equals(canal)) return false;
 	            canal.getAbonnes().add(utilisateur);
 	            utilisateur.getCanalAbonnes().add(canal);
 

@@ -33,7 +33,6 @@ public class UtilisateurManagerTest {
     private CanalManager canalManager;
 
     private final String userTest = "userTest";
-    private final String userMDP = "mdp";
 
     @Deployment
     public static Archive<?> createDeployment() {
@@ -77,8 +76,8 @@ public class UtilisateurManagerTest {
 
         canalManager.creer("tag",TypeCanal.PUBLIC,user.getLogin());
 
-        //assertTrue(utilisateurManager.subscribedToChannel(user2,"tag"));
-        //assertFalse(utilisateurManager.subscribedToChannel(user2,"tag"));
+        assertTrue(utilisateurManager.subscribedToChannel(user2,"tag"));
+        assertFalse(utilisateurManager.subscribedToChannel(user2,"tag"));
         //System.out.println(user2.getCanalAbonnes());
 
 
