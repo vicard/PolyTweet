@@ -51,8 +51,10 @@ public class CanalManagerBean implements CanalManager {
 			Utilisateur proprietaire = utilisateurFinder.findUtilisateurByLogin(proprietaireId);
 			canal = new Canal(tag,type,proprietaire);
 			proprietaire.getCanalProprietaires().add(canal);
-			entityManager.persist(canal);
+			proprietaire.getCanalModerateurs().add(canal);
+			proprietaire.getCanalAbonnes().add(canal);
 			entityManager.persist(proprietaire);
+			entityManager.persist(canal);
 		}
 		return canal;
 	}

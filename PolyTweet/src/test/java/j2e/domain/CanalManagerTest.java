@@ -69,11 +69,12 @@ public class CanalManagerTest {
     	assertNull(canalFinder.findCanalByTag("test"));
     	assertEquals(canal.getTag(),"tag");
     	Canal found = canalFinder.findCanalByTag("tag");
-    	assertNull(found);
-    	//assertEquals(found.getTag(),"tag");
-    	//assertEquals(found,canal);
-    	
-    	//assertEquals(canal.getProprietaires().contains(utilisateur),true);
+    	assertNotNull(found);
+    	assertEquals(found.getTag(),"tag");
+    	assertEquals(found,canal);
+    	//assertEquals(found.getProprietaires().contains(utilisateur),true);
+    	System.out.println(canal.getProprietaires());
+    	System.out.println(utilisateur.getCanalProprietaires());
     }
 
 

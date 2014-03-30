@@ -46,15 +46,15 @@ public class Canal implements Serializable {
     public Canal() {}
     
     public Canal(String tag, TypeCanal type, Utilisateur createur) {
-		this.tag = tag;
-		this.type = type;
-	    messages = new HashSet<Message>();
-	    abonnes = new HashSet<Utilisateur>();
+		this.setTag(tag);
+		this.setType(type);
+	    this.setMessages(new HashSet<Message>());
+	    this.setAbonnes(new HashSet<Utilisateur>());
 	   // abonnes.add(createur);
-	    attente = new HashSet<Utilisateur>();
-	    moderateurs = new HashSet<Utilisateur>();
+	    this.setAttente(new HashSet<Utilisateur>());
+	    this.setModerateurs(new HashSet<Utilisateur>());
 	    //moderateurs.add(createur);
-	    proprietaires = new HashSet<Utilisateur>();
+	    this.setProprietaires(new HashSet<Utilisateur>());
 	    //proprietaires.add(createur);
 	}
 
@@ -110,6 +110,14 @@ public class Canal implements Serializable {
 	public void supprimerAbonne(Utilisateur utilisateur){
 		this.abonnes.remove(utilisateur);
 	}
+	
+	public Set<Message> getMessages() {
+		return messages;
+	}
+	
+	public void setMessages(Set<Message> messages) {
+		this.messages=messages;
+	}
 
 	public Set<Utilisateur> getAbonnes() {
 		return abonnes;
@@ -158,6 +166,11 @@ public class Canal implements Serializable {
                 "tag = " + tag +
                 ", type = " + type +
                 "}";
+    }
+    
+    @Override
+    public int hashCode() {
+        return super.hashCode();
     }
     
 }

@@ -1,8 +1,9 @@
 package j2e.entities;
 
-import j2e.application.*;
+import j2e.application.NotAllowedException;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -44,7 +45,14 @@ public class Utilisateur implements Serializable {
 	private Set<Canal> canalProprietaires;
 	
 	public Utilisateur(String login){
-		this.login=login;
+		this.setLogin(login);
+		//this.canalCourant=new Canal();
+		this.setCanalAbonnes(new HashSet<Canal>());
+		this.setCanalAttente(new HashSet<Canal>());
+		this.setCanalModerateurs(new HashSet<Canal>());
+		this.setCanalProprietaires(new HashSet<Canal>());
+		this.setMessagesEnvoyes(new HashSet<Message>());
+		
 	}
 	
 	public Utilisateur() {}
@@ -153,6 +161,11 @@ public class Utilisateur implements Serializable {
 	            return u.getLogin().equals(this.getLogin());
 	        }
 	        return false;
+	    }
+	   
+	   @Override
+	    public int hashCode() {
+	        return super.hashCode();
 	    }
 
 }
