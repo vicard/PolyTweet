@@ -1,11 +1,11 @@
 package j2e.domain.impl;
 
+import j2e.domain.CanalFinder;
 import j2e.domain.UtilisateurFinder;
 import j2e.domain.UtilisateurManager;
+import j2e.entities.Canal;
 import j2e.entities.Utilisateur;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -19,6 +19,9 @@ public class UtilisateurManagerBean implements UtilisateurManager {
 
 	    @EJB
 	    UtilisateurFinder finder;
+	    
+	    @EJB
+	    CanalFinder canalFinder;
 
 	    public boolean delete(String login) {
 	        Utilisateur utilisateur = finder.findUtilisateurByLogin(login);
@@ -36,6 +39,23 @@ public class UtilisateurManagerBean implements UtilisateurManager {
 	            entityManager.persist(utilisateur);
 	        }
 	        return utilisateur;
+	    }
+	    
+	    public boolean subscribedToChannel(Utilisateur utilisateur, String tagChannel) {
+	        //if(role.compareTo(UserRole.USER_ROLE_CONNECTED) == 0){
+	            Canal canal = canalFinder.findCanalByTag(tagChannel);
+	            if(utilisateur.getCanalAbonnes().contains(canal)) return false;
+	        
+	            canal.getAbonnes().add(utilisateur);
+	            utilisateur.getCanalAbonnes().add(canal);
+
+	            entityManager.merge(utilisateur);
+	            entityManager.merge(canal);
+	            return true;
+	        //}
+	        // else user is not connected or he has already subscribed to this channel
+
+	        //return false;
 	    }
 
 }

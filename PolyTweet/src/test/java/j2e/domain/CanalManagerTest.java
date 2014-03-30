@@ -5,9 +5,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-
-import java.security.KeyRep.Type;
-
 import j2e.application.TypeCanal;
 import j2e.domain.impl.CanalFinderBean;
 import j2e.domain.impl.CanalManagerBean;
