@@ -11,6 +11,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -40,11 +41,11 @@ public class Message implements Serializable {
 	private Set<PieceJointe> piecesJointes;
 	
 	@ManyToOne(fetch=FetchType.EAGER,cascade=CascadeType.ALL)
-	@Column(name = "canal")
+	@JoinColumn(name = "canal")
 	private Canal canal;
 
 	@ManyToOne(fetch=FetchType.EAGER,cascade=CascadeType.ALL)
-	@Column(name = "auteur")
+	@JoinColumn(name = "auteur")
 	private Utilisateur auteur;
 	
 	public Message() {}

@@ -11,6 +11,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -32,15 +34,35 @@ public class Canal implements Serializable {
     private Set<Message> messages;
 
     @ManyToMany(fetch=FetchType.EAGER,cascade=CascadeType.ALL)
+    @JoinTable(
+    		name = "abonnement",
+    		joinColumns = @JoinColumn(name = "canal"),
+    		inverseJoinColumns = @JoinColumn(name = "abonne")
+    		)
     private Set<Utilisateur> abonnes;
     
     @ManyToMany(fetch=FetchType.EAGER,cascade=CascadeType.ALL)
+    @JoinTable(
+    		name = "attentes",
+    		joinColumns = @JoinColumn(name = "canal"),
+    		inverseJoinColumns = @JoinColumn(name = "enAttente")
+    		)
     private Set<Utilisateur> attente;
 
     @ManyToMany(fetch=FetchType.EAGER,cascade=CascadeType.ALL)
+    @JoinTable(
+    		name = "moderateurs",
+    		joinColumns = @JoinColumn(name = "canal"),
+    		inverseJoinColumns = @JoinColumn(name = "moderateur")
+    		)
     private Set<Utilisateur> moderateurs;
     
     @ManyToMany(fetch=FetchType.EAGER,cascade=CascadeType.ALL)
+    @JoinTable(
+    		name = "proprietaires",
+    		joinColumns = @JoinColumn(name = "canal"),
+    		inverseJoinColumns = @JoinColumn(name = "proprietaire")
+    		)
     private Set<Utilisateur> proprietaires;
     
     public Canal() {}
@@ -50,11 +72,11 @@ public class Canal implements Serializable {
 		this.setType(type);
 	    this.setMessages(new HashSet<Message>());
 	    this.setAbonnes(new HashSet<Utilisateur>());
-	   // abonnes.add(createur);
 	    this.setAttente(new HashSet<Utilisateur>());
 	    this.setModerateurs(new HashSet<Utilisateur>());
-	    //moderateurs.add(createur);
 	    this.setProprietaires(new HashSet<Utilisateur>());
+	    //abonnes.add(createur);
+	    //moderateurs.add(createur);
 	    //proprietaires.add(createur);
 	}
 

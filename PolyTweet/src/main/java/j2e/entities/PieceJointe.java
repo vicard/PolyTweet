@@ -7,6 +7,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -21,7 +22,7 @@ public class PieceJointe implements Serializable {
 	private File fichier;
 	
 	@ManyToOne(fetch=FetchType.EAGER,cascade=CascadeType.ALL)
-	@Column(name = "message")
+	@JoinColumn(name = "message")
 	private Message message;
 	
 	public PieceJointe() {}
