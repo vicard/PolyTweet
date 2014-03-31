@@ -1,6 +1,7 @@
 package j2e.domain.impl;
 
 import j2e.domain.MessageFinder;
+import j2e.domain.MessageManager;
 import j2e.entities.Canal;
 import j2e.entities.Message;
 import j2e.entities.Utilisateur;
@@ -13,7 +14,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 @Stateless
-public class MessageManagerBean {
+public class MessageManagerBean implements MessageManager{
 	
 	 @PersistenceContext(unitName = "polytweet-pu")
 	    EntityManager entityManager;
