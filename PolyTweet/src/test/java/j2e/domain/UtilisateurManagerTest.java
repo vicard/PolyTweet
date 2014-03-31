@@ -101,31 +101,4 @@ public class UtilisateurManagerTest {
         assertTrue(canalFinder.findCanalByTag("tagTest").getAttente().toArray()[0].equals(receveur));
     }
 
-    @Test
-    public void testAddModerateur() throws Exception{
-    	Utilisateur donneur =utilisateurFinder.findUtilisateurByLogin(userTest2);
-    	Utilisateur receveur =utilisateurFinder.findUtilisateurByLogin(userTest);
-    	Canal canal =canalFinder.findCanalByTag("tagTest");
-    	boolean containDonneur = false;
-    	boolean containReceveur = false;
-    	
-    	for(Canal c : donneur.getCanalProprietaires())
-    		if(c.equals(canal)) containDonneur=true;
-    	assertTrue(containDonneur);
-    	for(Canal c : receveur.getCanalModerateurs())
-    		if(c.equals(canal)) containReceveur=true;
-    	assertFalse(containReceveur);
-    	
-    	utilisateurManager.ajouterModerateur(donneur,receveur, "tagTest");
-    	
-    	containDonneur = false;
-    	containReceveur = false;
-    	for(Canal c : donneur.getCanalProprietaires())
-    		if(c.equals(canal)) containDonneur=true;
-    	assertTrue(containDonneur);
-    	for(Canal c : receveur.getCanalModerateurs())
-    		if(c.equals(canal)) containReceveur=true;
-    	assertTrue(containReceveur);
-    }
-
 }
