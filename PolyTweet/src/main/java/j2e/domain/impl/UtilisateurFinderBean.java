@@ -15,23 +15,5 @@ public class UtilisateurFinderBean extends FinderBean implements UtilisateurFind
 			return null;
 		}
 	}
-	
-	 public Utilisateur findById(String id)
-	    {
-	        try {
-	            return createdQueryWithOneParameter(Utilisateur.class, "utilisateurId", id).getSingleResult();
-	        } catch (Exception e) {
-	            return null;
-	        }
-	    }
-	
-	//public Utilisateur findAttenteByLogin(String login){
-	//	
-	//}
-	//public Set<Utilisateur> findAllAttente(){
-		//
-	//}
-
-
 
 }

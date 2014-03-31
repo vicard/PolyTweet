@@ -4,15 +4,7 @@ package j2e.domain.impl;
 import j2e.domain.MessageFinder;
 import j2e.entities.Message;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 import javax.ejb.Stateless;
-import javax.ejb.TransactionManagement;
-import javax.ejb.TransactionManagementType;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 @Stateless
 public class MessageFinderBean extends FinderBean implements MessageFinder {
 	
@@ -23,11 +15,4 @@ public class MessageFinderBean extends FinderBean implements MessageFinder {
 			return null;
 		}
 	}
-	
-	
-  /*  public Set<Message> findAllMessage(){
-    	List<Message> listeMessages = createdQuery().getResultList();
-        return new HashSet<Message> (listeMessages);
-    }
-    */
 }

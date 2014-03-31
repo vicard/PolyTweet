@@ -9,14 +9,8 @@ import j2e.entities.Canal;
 import j2e.entities.Message;
 import j2e.entities.Utilisateur;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.ejb.TransactionAttribute;
-import javax.ejb.TransactionAttributeType;
-import javax.ejb.TransactionManagement;
-import javax.ejb.TransactionManagementType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -57,9 +51,6 @@ public class CanalManagerBean implements CanalManager {
 			proprietaire.getCanalAbonnes().add(canal);
 			entityManager.persist(canal);
 			entityManager.persist(proprietaire);
-			//entityManager.merge(canal);
-			//entityManager.merge(proprietaire);
-			
 		}
 		
 		return canal;

@@ -1,6 +1,7 @@
 package j2e.entities;
 
 
+
 public class Proprietaire extends Moderateur {
 
 	public Proprietaire(String login) {
@@ -18,5 +19,14 @@ public class Proprietaire extends Moderateur {
 		canal.supprimerModerateur(moderateur);
 	}
 	
+	@Override
+	public void ajouterProprietaire(Utilisateur proprietaire, Canal canal){
+		canal.ajouterProprietaire(proprietaire);
+	}
+	
+	@Override
+	public void supprimerProprietaire(Utilisateur proprietaire, Canal canal){
+		canal.supprimerProprietaire(proprietaire);
+	}
 
 }

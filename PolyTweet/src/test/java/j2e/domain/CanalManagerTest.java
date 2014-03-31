@@ -68,8 +68,6 @@ public class CanalManagerTest {
     public void testCreate() throws Exception {
     	assertEquals(utilisateur.getLogin(),"toto");
     	Canal canal = canalManager.creer("tag",TypeCanal.PUBLIC,"toto");    
-    	System.out.println(canal.getProprietaires());
-    	System.out.println(canal.getTag());
     	Canal found = canalFinder.findCanalByTag("tag");
     	assertEquals(found,canal);
     }

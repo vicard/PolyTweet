@@ -1,11 +1,15 @@
 package j2e.domain.impl;
 
-import j2e.application.NotAllowedException;
+import java.util.HashSet;
+import java.util.Set;
+
 import j2e.domain.CanalFinder;
 import j2e.domain.UtilisateurFinder;
 import j2e.domain.UtilisateurManager;
 import j2e.entities.Canal;
+import j2e.entities.Message;
 import j2e.entities.Utilisateur;
+import j2e.entities.Moderateur;
 import j2e.entities.Proprietaire;
 
 import javax.ejb.EJB;
@@ -43,33 +47,128 @@ public class UtilisateurManagerBean implements UtilisateurManager {
 	        return utilisateur;
 	    }
 	    
-	    public boolean subscribedToChannel(Utilisateur utilisateur, String tagChannel) {
-	        //if(role.compareTo(UserRole.USER_ROLE_CONNECTED) == 0){
+	    public boolean demandeAbonnement(Utilisateur utilisateur, String tagChannel) {
 	            Canal canal = canalFinder.findCanalByTag(tagChannel);
 	            entityManager.merge(utilisateur);
 	            for(Canal c : utilisateur.getCanalAbonnes()) 
-	            	if(c.equals(canal)) return false;
-	            canal.getAbonnes().add(utilisateur);
-	            utilisateur.getCanalAbonnes().add(canal);
+	            	if(c.equals(canal)) 
+	            		return false;
+	            for(Canal c : utilisateur.getCanalAttente())
+	            	if(c.equals(canal))
+	            		return false;
+	            canal.getAttente().add(utilisateur);
+	            utilisateur.getCanalAttente().add(canal);
 
 	            entityManager.merge(utilisateur);
 	            entityManager.merge(canal);
 	            return true;
-	        //}
-	        // else user is not connected or he has already subscribed to this channel
-
-	        //return false;
+	    }
+	    
+	    public boolean accepterAbonnement(Utilisateur donneur,Utilisateur receveur, String tagCanal){
+	    	Canal canal = canalFinder.findCanalByTag(tagCanal);
+            entityManager.merge(donneur);
+            entityManager.merge(receveur);
+            boolean donneurModerateur = false;
+            boolean 
+            for(Canal c : donneur.getCanalModerateurs()) 
+            	if(c.equals(canal)) 
+            		donneurModerateur=true;
+            for(Canal c : utilisateur.getCanalAttente())
+            	if(c.equals(canal))
+            		return false;
+            
+            if(donneur.getCanalModerateurs().contains(canal) && receveur.getCanalAttente().contains(canal)){
+					((Moderateur)donneur).accepterAbonne(receveur,canal);
+					return true;
+            }
+	    	return false;	    	
+	    }
+	    
+	    public boolean refuserAbonnement(Utilisateur donneur,Utilisateur receveur, String tagCanal){
+	    	Canal canal = canalFinder.findCanalByTag(tagCanal);
+            entityManager.merge(donneur);
+            entityManager.merge(receveur);
+            if(donneur.getCanalModerateurs().contains(canal) && receveur.getCanalAttente().contains(canal)){
+					((Moderateur)donneur).refuserAbonne(receveur,canal);
+					return true;
+            }
+	    	return false;	    	
 	    }
 	    
 	    public boolean ajouterModerateur(Utilisateur donneur,Utilisateur receveur, String tagCanal){
 	    	Canal canal = canalFinder.findCanalByTag(tagCanal);
             entityManager.merge(donneur);
             entityManager.merge(receveur);
+            System.out.println("test " +canal);
+            System.out.println("test " + donneur.getCanalProprietaires());
+            System.out.println(donneur.getCanalProprietaires().contains(canal));
             if(donneur.getCanalProprietaires().contains(canal)){
 					((Proprietaire)donneur).ajouterModerateur(receveur,canal);
 					return true;
             }
 	    	return false;
 	    }
+	    
+	    public boolean supprimerModerateur(Utilisateur donneur,Utilisateur receveur, String tagCanal){
+	    	Canal canal = canalFinder.findCanalByTag(tagCanal);
+            entityManager.merge(donneur);
+            entityManager.merge(receveur);
+            if(donneur.getCanalProprietaires().contains(canal) && receveur.getCanalModerateurs().contains(canal)){
+					((Proprietaire)donneur).supprimerModerateur(receveur,canal);
+					return true;
+            }
+	    	return false;
+	    }
+	    
+	    public boolean ajouterProprietaire(Utilisateur donneur,Utilisateur receveur, String tagCanal){
+	    	Canal canal = canalFinder.findCanalByTag(tagCanal);
+            entityManager.merge(donneur);
+            entityManager.merge(receveur);
+            if(donneur.getCanalProprietaires().contains(canal)){
+					((Proprietaire)donneur).ajouterProprietaire(receveur,canal);
+					return true;
+            }
+	    	return false;
+	    }
+	    
+	    public boolean supprimerProprietaire(Utilisateur donneur,Utilisateur receveur, String tagCanal){
+	    	Canal canal = canalFinder.findCanalByTag(tagCanal);
+            entityManager.merge(donneur);
+            entityManager.merge(receveur);
+            if(donneur.getCanalProprietaires().contains(canal) && receveur.getCanalModerateurs().contains(canal)){
+					((Proprietaire)donneur).supprimerProprietaire(receveur,canal);
+					return true;
+            }
+	    	return false;
+	    }
 
+	    public boolean ajouterMessage(Utilisateur utilisateur, Message message, String tagCanal){
+	    	Canal canal = canalFinder.findCanalByTag(tagCanal);
+            entityManager.merge(utilisateur);
+            if(utilisateur.getCanalAbonnes().contains(canal)){
+					utilisateur.ajouterMessage(message, canal);
+					return true;
+            }
+	    	return false;
+	    }
+	    
+	    public boolean supprimerMessage(Utilisateur utilisateur, Message message, String tagCanal){
+	    	Canal canal = canalFinder.findCanalByTag(tagCanal);
+            entityManager.merge(utilisateur);
+            if(utilisateur.getCanalModerateurs().contains(canal) && canal.getMessages().contains(message)){
+					((Moderateur)utilisateur).supprimerMessage(message, canal);
+					return true;
+            }
+	    	return false;
+	    }
+	    
+	    public Set<Message> consulterMessages(Utilisateur utilisateur, String tagCanal){
+	    	Set<Message> messages = new HashSet<Message>();
+	    	Canal canal = canalFinder.findCanalByTag(tagCanal);
+            entityManager.merge(utilisateur);
+            if(utilisateur.getCanalAbonnes().contains(canal)){
+					messages = utilisateur.consulterMessages(canal);
+            }
+	    	return messages;
+	    }
 }

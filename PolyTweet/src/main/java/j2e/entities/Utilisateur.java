@@ -116,6 +116,14 @@ public class Utilisateur implements Serializable {
 		throw new NotAllowedException("Vous n'avez pas les droits suffisants pour effectuer cet action");
 	}
 	
+	public void ajouterProprietaire(Utilisateur proprietaire, Canal canal) throws NotAllowedException{
+		throw new NotAllowedException("Vous n'avez pas les droits suffisants pour effectuer cet action");
+	}
+	
+	public void supprimerProprietaire(Utilisateur proprietaire, Canal canal) throws NotAllowedException{
+		throw new NotAllowedException("Vous n'avez pas les droits suffisants pour effectuer cet action");
+	}
+	
 	public void demanderAbonnement(Utilisateur utilisateur, Canal canal){
 		canal.demanderAbonnement(utilisateur);
 	}
@@ -132,8 +140,7 @@ public class Utilisateur implements Serializable {
 		throw new NotAllowedException("Vous n'avez pas les droits suffisants pour effectuer cet action");
 	}
 	
-	public Set<Message> consulterMessages(Canal canal){
-		 
+	public Set<Message> consulterMessages(Canal canal){	 
 		return canal.consulterMessages();
 	}
 	 

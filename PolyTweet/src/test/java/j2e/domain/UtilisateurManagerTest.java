@@ -1,12 +1,13 @@
 package j2e.domain;
 
-import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 import j2e.application.TypeCanal;
 import j2e.domain.impl.CanalFinderBean;
 import j2e.domain.impl.CanalManagerBean;
-import j2e.domain.impl.UtilisateurManagerBean;
 import j2e.entities.Canal;
 import j2e.entities.Utilisateur;
 
@@ -53,9 +54,6 @@ public class UtilisateurManagerTest {
     }
     private final String userTest = "userTest";
     private final String userTest2 = "userTest2";
-    private Utilisateur utilisateur;
-    private boolean containDonneur;
-    private boolean containReceveur;
 
     @Before
     public void setUp() throws Exception {
@@ -93,14 +91,14 @@ public class UtilisateurManagerTest {
     }
     
     @Test
-    public void testSubscribed() throws Exception{
-        Utilisateur user = utilisateurManager.create("login");
-        Utilisateur user2 = utilisateurManager.create("login2");
-
-        canalManager.creer("tag",TypeCanal.PUBLIC,user.getLogin());
-
-        assertTrue(utilisateurManager.subscribedToChannel(user2,"tag"));
-        assertFalse(utilisateurManager.subscribedToChannel(user2,"tag"));
+    public void testDemandeAbonnement() throws Exception{
+    	Utilisateur receveur =utilisateurFinder.findUtilisateurByLogin(userTest);
+    	Canal canal =canalFinder.findCanalByTag("tagTest");
+    	
+        assertTrue(utilisateurManager.demandeAbonnement(receveur,"tagTest"));
+        assertFalse(utilisateurManager.demandeAbonnement(receveur,"tagTest"));
+        assertTrue(utilisateurFinder.findUtilisateurByLogin(userTest).getCanalAttente().toArray()[0].equals(canal));
+        assertTrue(canalFinder.findCanalByTag("tagTest").getAttente().toArray()[0].equals(receveur));
     }
 
     @Test
@@ -108,38 +106,26 @@ public class UtilisateurManagerTest {
     	Utilisateur donneur =utilisateurFinder.findUtilisateurByLogin(userTest2);
     	Utilisateur receveur =utilisateurFinder.findUtilisateurByLogin(userTest);
     	Canal canal =canalFinder.findCanalByTag("tagTest");
-    	assertFalse(receveur.getCanalProprietaires().contains(canal));
+    	boolean containDonneur = false;
+    	boolean containReceveur = false;
+    	
     	for(Canal c : donneur.getCanalProprietaires())
     		if(c.equals(canal)) containDonneur=true;
     	assertTrue(containDonneur);
     	for(Canal c : receveur.getCanalModerateurs())
     		if(c.equals(canal)) containReceveur=true;
     	assertFalse(containReceveur);
-    	utilisateurManager.ajouterModerateur(donneur,receveur, "tagTest");
-    	System.out.println(receveur.getCanalModerateurs()); // retourne vide pas normal faut modifier la fonction
-    	//for(Canal c : receveur.getCanalModerateurs())
-    		//if(c.equals(canal)) containReceveur=true;
-    	//assertTrue(containReceveur);
     	
+    	utilisateurManager.ajouterModerateur(donneur,receveur, "tagTest");
+    	
+    	containDonneur = false;
+    	containReceveur = false;
+    	for(Canal c : donneur.getCanalProprietaires())
+    		if(c.equals(canal)) containDonneur=true;
+    	assertTrue(containDonneur);
+    	for(Canal c : receveur.getCanalModerateurs())
+    		if(c.equals(canal)) containReceveur=true;
+    	assertTrue(containReceveur);
     }
-    /*
-    @Test
-    public void testModerate() throws Exception{
-        User user = manager.create("login","mdp","toto","toto");
-        User user2 = manager.create("login2","mdp","toto","toto");
-
-        channelManager.create("tag",false,user.getUserId());
-
-        user2 = manager.logIn(user2.getLogin(),user2.getPassword());
-        assertTrue(manager.becomeModeratorOfChannel(user2,"tag"));
-
-
-        //already moderate
-        assertFalse(manager.becomeModeratorOfChannel(user2,"tag"));
-        //is already the owner
-        assertFalse(manager.becomeModeratorOfChannel(user, "tag"));
-    }
-	*/
-
 
 }

@@ -23,7 +23,7 @@ public class CanalFinderBean extends FinderBean implements CanalFinder  {
 
 	    
 	    public Set<Canal> findCanalByProprietaire(String login) {
-	        Utilisateur utilisateur = utilisateurFinder.findById(login);
+	        Utilisateur utilisateur = utilisateurFinder.findUtilisateurByLogin(login);
 	        List<Canal> canaux = createdQueryWithOneParameter(Canal.class, "proprietaires",utilisateur).getResultList();
 	        return new HashSet<Canal>(canaux);
 	    }
@@ -36,13 +36,4 @@ public class CanalFinderBean extends FinderBean implements CanalFinder  {
 			return null;
 		}
 	}
-	
-	
-	
-	
-  /*  public Set<Canal> findAllCanal(){
-    	List<Canal> canaux = createdQuery().getResultList();
-        return new HashSet<Canal> (canaux);
-    }
-*/
 }

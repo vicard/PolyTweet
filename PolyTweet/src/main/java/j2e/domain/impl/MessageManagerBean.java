@@ -5,15 +5,10 @@ import j2e.entities.Canal;
 import j2e.entities.Message;
 import j2e.entities.Utilisateur;
 
-import java.util.Date;
-import java.util.Set;
-
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.ejb.TransactionManagement;
-import javax.ejb.TransactionManagementType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -36,13 +31,11 @@ public class MessageManagerBean {
 	        return false;
 	    }
 
-	    
-	/*    public Message create(long id, String text,Canal canal,List<PieceJointe>){
-	        Message message = new Message(id, text, canal, new Date());
+	    public Message create(String texte, Canal canal, Utilisateur auteur){
+	        Message message = new Message(texte, canal, auteur);
 	        entityManager.persist(message);
-	        return message ;
+	        return message;
 	    }
-*/
 
 	    @PostConstruct
 	    public void initialize() {

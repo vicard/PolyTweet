@@ -164,6 +164,14 @@ public class Canal implements Serializable {
 	public void supprimerModerateur(Utilisateur moderateur){
 		this.moderateurs.remove(moderateur);
 	}
+	
+	public void ajouterProprietaire(Utilisateur proprietaire){
+		this.proprietaires.add(proprietaire);
+	}
+	
+	public void supprimerProprietaire(Utilisateur proprietaire){
+		this.proprietaires.remove(proprietaire);
+	}
 
 	public Set<Utilisateur> getProprietaires() {
 		return proprietaires;
