@@ -32,7 +32,6 @@ public class UtilisateurManagerTest {
     @EJB
     private CanalManager canalManager;
 
-    private final String userTest = "userTest";
 
     @Deployment
     public static Archive<?> createDeployment() {
@@ -42,12 +41,18 @@ public class UtilisateurManagerTest {
                 .addPackage(UtilisateurManager.class.getPackage())
                 .addPackage(UtilisateurManagerBean.class.getPackage());
     }
+    private final String userTest = "userTest";
 
     @Before
     public void setUp() throws Exception {
         utilisateurManager.create(userTest);
     }
 
+    @After
+    public void clean() throws Exception {
+        utilisateurManager.delete(userTest);
+    }
+    
     @Test
     public void testCreate() throws Exception {
         assertNull(utilisateurFinder.findUtilisateurByLogin("user"));
@@ -86,7 +91,12 @@ public class UtilisateurManagerTest {
         //is already the owner
         //assertFalse(utilisateurManager.subscribedToChannel(user,"tag"));
     }
-/*
+
+    @Test
+    public void testAddModerateur() throws Exception{
+    	utilisateurFinder.findUtilisateurByLogin("userTest");
+    }
+    /*
     @Test
     public void testModerate() throws Exception{
         User user = manager.create("login","mdp","toto","toto");
@@ -104,9 +114,6 @@ public class UtilisateurManagerTest {
         assertFalse(manager.becomeModeratorOfChannel(user, "tag"));
     }
 	*/
-    @After
-    public void clean() throws Exception {
-        utilisateurManager.delete("toto");
-    }
+
 
 }

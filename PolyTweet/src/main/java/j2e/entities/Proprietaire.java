@@ -9,12 +9,12 @@ public class Proprietaire extends Moderateur {
 	}
 	
 	@Override
-	void ajouterModerateur(Moderateur moderateur, Canal canal){
+	public void ajouterModerateur(Utilisateur moderateur, Canal canal){
 		canal.ajouterModerateur(moderateur);
 	}
 	
 	@Override
-	void supprimerModerateur(Moderateur moderateur, Canal canal){
+	public void supprimerModerateur(Utilisateur moderateur, Canal canal){
 		canal.supprimerModerateur(moderateur);
 	}
 	

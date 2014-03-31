@@ -62,13 +62,10 @@ public class CanalManagerTest {
 		utilisateurManager.create("toto");
 		utilisateur=utilisateurFinder.findUtilisateurByLogin("toto");
 		canalManager.creer("test",TypeCanal.PUBLIC, "toto");
-		
-		
     }
 
     @Test
     public void testCreate() throws Exception {
-    	
     	assertEquals(utilisateur.getLogin(),"toto");
     	Canal canal = canalManager.creer("tag",TypeCanal.PUBLIC,"toto");    
     	System.out.println(canal.getProprietaires());

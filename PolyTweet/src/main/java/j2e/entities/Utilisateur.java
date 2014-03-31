@@ -100,44 +100,44 @@ public class Utilisateur implements Serializable {
 		this.canalProprietaires=canalProprietaires;
 	}
 
-	void ajouterMessage(Message message, Canal canal){
+	public void ajouterMessage(Message message, Canal canal){
 		canal.ajouterMessage(message);
 	}
 	
-	void supprimerMessage(Message message, Canal canal) throws NotAllowedException{
+	public void supprimerMessage(Message message, Canal canal) throws NotAllowedException{
 		throw new NotAllowedException("Vous n'avez pas les droits suffisants pour effectuer cet action");
 	}
 	
-	void ajouterModerateur(Moderateur moderateur, Canal canal) throws NotAllowedException{
+	public void ajouterModerateur(Utilisateur moderateur, Canal canal) throws NotAllowedException{
 		throw new NotAllowedException("Vous n'avez pas les droits suffisants pour effectuer cet action");
 	}
 	
-	void supprimerModerateur(Moderateur moderateur, Canal canal) throws NotAllowedException{
+	public void supprimerModerateur(Utilisateur moderateur, Canal canal) throws NotAllowedException{
 		throw new NotAllowedException("Vous n'avez pas les droits suffisants pour effectuer cet action");
 	}
 	
-	void demanderAbonnement(Utilisateur utilisateur, Canal canal){
+	public void demanderAbonnement(Utilisateur utilisateur, Canal canal){
 		canal.demanderAbonnement(utilisateur);
 	}
 	
-	void accepterAbonne(Utilisateur utilisateur, Canal canal) throws NotAllowedException{
+	public void accepterAbonne(Utilisateur utilisateur, Canal canal) throws NotAllowedException{
 		throw new NotAllowedException("Vous n'avez pas les droits suffisants pour effectuer cet action");
 	}
 	
-	void supprimerAbonne(Utilisateur utilisateur, Canal canal) throws NotAllowedException{
+	public void supprimerAbonne(Utilisateur utilisateur, Canal canal) throws NotAllowedException{
 		throw new NotAllowedException("Vous n'avez pas les droits suffisants pour effectuer cet action");
 	}
 	
-	void refuserAbonne(Utilisateur utilisateur, Canal canal) throws NotAllowedException{
+	public void refuserAbonne(Utilisateur utilisateur, Canal canal) throws NotAllowedException{
 		throw new NotAllowedException("Vous n'avez pas les droits suffisants pour effectuer cet action");
 	}
 	
-	 Set<Message> consulterMessages(Canal canal){
+	public Set<Message> consulterMessages(Canal canal){
 		 
 		return canal.consulterMessages();
 	}
 	 
-	void supprimerCanal(Canal canal) throws NotAllowedException{
+	public void supprimerCanal(Canal canal) throws NotAllowedException{
 		throw new NotAllowedException("Vous n'avez pas les droits suffisants pour effectuer cet action");
 	}
 	

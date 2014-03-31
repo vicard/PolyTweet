@@ -75,9 +75,9 @@ public class Canal implements Serializable {
 	    this.setAttente(new HashSet<Utilisateur>());
 	    this.setModerateurs(new HashSet<Utilisateur>());
 	    this.setProprietaires(new HashSet<Utilisateur>());
-//	    abonnes.add(createur);
-//	    moderateurs.add(createur);
-//	    proprietaires.add(createur);
+	    abonnes.add(createur);
+	    moderateurs.add(createur);
+	    proprietaires.add(createur);
 	}
 
 	public String getTag() {

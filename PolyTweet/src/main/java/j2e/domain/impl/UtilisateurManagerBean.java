@@ -1,13 +1,12 @@
 package j2e.domain.impl;
 
+import j2e.application.NotAllowedException;
 import j2e.domain.CanalFinder;
 import j2e.domain.UtilisateurFinder;
 import j2e.domain.UtilisateurManager;
 import j2e.entities.Canal;
 import j2e.entities.Utilisateur;
-
-import java.util.Iterator;
-import java.util.Set;
+import j2e.entities.Proprietaire;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -48,8 +47,8 @@ public class UtilisateurManagerBean implements UtilisateurManager {
 	        //if(role.compareTo(UserRole.USER_ROLE_CONNECTED) == 0){
 	            Canal canal = canalFinder.findCanalByTag(tagChannel);
 	            entityManager.merge(utilisateur);
-	            System.out.println(utilisateur.getCanalAbonnes());
-	            for(Canal c : utilisateur.getCanalAbonnes()) if(c.equals(canal)) return false;
+	            for(Canal c : utilisateur.getCanalAbonnes()) 
+	            	if(c.equals(canal)) return false;
 	            canal.getAbonnes().add(utilisateur);
 	            utilisateur.getCanalAbonnes().add(canal);
 
@@ -60,6 +59,17 @@ public class UtilisateurManagerBean implements UtilisateurManager {
 	        // else user is not connected or he has already subscribed to this channel
 
 	        //return false;
+	    }
+	    
+	    public boolean ajouterModerateur(Utilisateur donneur,Utilisateur receveur, String tagCanal){
+	    	Canal canal = canalFinder.findCanalByTag(tagCanal);
+            entityManager.merge(donneur);
+            entityManager.merge(receveur);
+            if(donneur.getCanalProprietaires().contains(canal)){
+					((Proprietaire)donneur).ajouterModerateur(receveur,canal);
+					return true;
+            }
+	    	return false;
 	    }
 
 }
