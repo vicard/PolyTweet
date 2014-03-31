@@ -4,7 +4,10 @@ import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import j2e.application.TypeCanal;
+import j2e.domain.impl.CanalFinderBean;
+import j2e.domain.impl.CanalManagerBean;
 import j2e.domain.impl.UtilisateurManagerBean;
+import j2e.entities.Canal;
 import j2e.entities.Utilisateur;
 
 import javax.ejb.EJB;
@@ -28,6 +31,9 @@ public class UtilisateurManagerTest {
 
     @EJB
     private UtilisateurFinder utilisateurFinder;
+    
+    @EJB
+    private CanalFinder canalFinder;
 
     @EJB
     private CanalManager canalManager;
@@ -38,19 +44,31 @@ public class UtilisateurManagerTest {
         return ShrinkWrap.create(WebArchive.class, "test.war")
                 .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml")
                 .addAsWebInfResource("META-INF/persistence.xml", "persistence.xml")
-                .addPackage(UtilisateurManager.class.getPackage())
-                .addPackage(UtilisateurManagerBean.class.getPackage());
+                .addPackage(CanalManager.class.getPackage())
+                .addPackage(CanalManagerBean.class.getPackage())
+                .addPackage(Utilisateur.class.getPackage())
+            	.addPackage(Canal.class.getPackage())
+            	.addPackage(CanalFinderBean.class.getPackage())
+            	.addPackage(CanalFinder.class.getPackage());
     }
     private final String userTest = "userTest";
+    private final String userTest2 = "userTest2";
+    private Utilisateur utilisateur;
+    private boolean containDonneur;
+    private boolean containReceveur;
 
     @Before
     public void setUp() throws Exception {
-        utilisateurManager.create(userTest);
+    	utilisateurManager.create(userTest);
+    	utilisateurManager.create(userTest2);
+		canalManager.creer("tagTest",TypeCanal.PUBLIC, userTest2);
     }
 
     @After
-    public void clean() throws Exception {
+    public void cleanUp() throws Exception {
         utilisateurManager.delete(userTest);
+        utilisateurManager.delete(userTest2);
+        canalManager.supprimer("tagTest");
     }
     
     @Test
@@ -83,18 +101,26 @@ public class UtilisateurManagerTest {
 
         assertTrue(utilisateurManager.subscribedToChannel(user2,"tag"));
         assertFalse(utilisateurManager.subscribedToChannel(user2,"tag"));
-        //System.out.println(user2.getCanalAbonnes());
-
-
-        //already subscribed
-        //assertFalse(utilisateurManager.subscribedToChannel(user,"tag"));
-        //is already the owner
-        //assertFalse(utilisateurManager.subscribedToChannel(user,"tag"));
     }
 
     @Test
     public void testAddModerateur() throws Exception{
-    	utilisateurFinder.findUtilisateurByLogin("userTest");
+    	Utilisateur donneur =utilisateurFinder.findUtilisateurByLogin(userTest2);
+    	Utilisateur receveur =utilisateurFinder.findUtilisateurByLogin(userTest);
+    	Canal canal =canalFinder.findCanalByTag("tagTest");
+    	assertFalse(receveur.getCanalProprietaires().contains(canal));
+    	for(Canal c : donneur.getCanalProprietaires())
+    		if(c.equals(canal)) containDonneur=true;
+    	assertTrue(containDonneur);
+    	for(Canal c : receveur.getCanalModerateurs())
+    		if(c.equals(canal)) containReceveur=true;
+    	assertFalse(containReceveur);
+    	utilisateurManager.ajouterModerateur(donneur,receveur, "tagTest");
+    	System.out.println(receveur.getCanalModerateurs()); // retourne vide pas normal faut modifier la fonction
+    	//for(Canal c : receveur.getCanalModerateurs())
+    		//if(c.equals(canal)) containReceveur=true;
+    	//assertTrue(containReceveur);
+    	
     }
     /*
     @Test
