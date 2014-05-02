@@ -30,12 +30,18 @@ namespace PolyTweetWPF
         private void buttonConnexion_Click(object sender, RoutedEventArgs e)
         {
             if (client.Connexion(textBoxLogin.Text, passwordBoxPassword.Password))
-                ErrorLabel.Content = "Connexion réussie";
+                ErrorLabel.Content = "Connexion réussie : Bonjour " + textBoxLogin.Text;
             else
                 ErrorLabel.Content = "Connexion échouée";
         }
         private void buttonInscription_Click(object sender, RoutedEventArgs e)
-        { }
+        {
+            if (client.ajouterUtilisateur(textBoxLogin.Text, passwordBoxPassword.Password))
+                ErrorLabel.Content = "Inscription réussie";
+            else
+                ErrorLabel.Content = "Inscription échouée";
+
+        }
         private void buttonAnnuler_Click(object sender, RoutedEventArgs e)
         {
             MainWindow mainWindow = new MainWindow();
