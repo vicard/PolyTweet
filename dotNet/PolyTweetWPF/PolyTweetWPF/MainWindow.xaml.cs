@@ -46,7 +46,7 @@ namespace PolyTweetWPF
             canaux.Add(c3.tag, c3);
         }
 
-        public MainWindow() : this("")
+        public MainWindow() : this("anonyme")
         {}
 
         public MainWindow(string login)
@@ -56,22 +56,27 @@ namespace PolyTweetWPF
             InitData();
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
 
-            if (login != "")
+            if (login != "anonyme")
             {
                 labelCoucou.Content = "Bienvenue, " + login + " !";
                 buttonConnexion.Content = "Se déconnecter";
-                newMessageBox.Visibility = Visibility.Visible;
-                newMessageLabel.Visibility = Visibility.Visible;
-                newMessageButton.Visibility = Visibility.Visible;
                 newCanalButton.Visibility = Visibility.Visible;
                 newCanalIsPublic.Visibility = Visibility.Visible;
                 newcanalLabel.Visibility = Visibility.Visible;
                 newCanalTag.Visibility = Visibility.Visible;
-                DataGridMessage.Margin = new Thickness(10,350,10,10);
+                informationCreationCanal.Visibility = Visibility.Hidden;
+               // DataGridMessage.Margin = new Thickness(10,350,10,10);
+            }
+            else
+            {
+                labelCoucou.Content = "Bienvenue, anonyme!";
+                informationCreationCanal.Content = "Pour pouvoir créer un canal, vous devez tout d'abord vous connecter !";
+
+                
             }
             foreach (var c in canaux)
             {
-                if (c.Value.isPublic || login != "")
+                if (c.Value.isPublic || login != "anonyme")
                     ComboBoxCanaux.Items.Add(c.Key);
             }
 
@@ -84,7 +89,7 @@ namespace PolyTweetWPF
 
         private void buttonConnexion_Click(object sender, RoutedEventArgs e)
         {
-            if (login == "")
+            if (login == "anonyme")
             {
                 LoginWindow loginWindow = new LoginWindow();
                 this.Close();
@@ -105,7 +110,7 @@ namespace PolyTweetWPF
                 bool newIsPublic = newCanalIsPublic.IsChecked.Value && newCanalIsPublic.IsChecked.HasValue;
                 Canal tmp = new Canal(newTag, newIsPublic);
                 canaux.Add(tmp.tag,tmp);
-                if (newIsPublic || login!="") ComboBoxCanaux.Items.Add(newTag);
+                if (newIsPublic || login!="anonyme") ComboBoxCanaux.Items.Add(newTag);
                 ResultCreationCanal.Content = "Canal créé avec succès !";
             }
             else
