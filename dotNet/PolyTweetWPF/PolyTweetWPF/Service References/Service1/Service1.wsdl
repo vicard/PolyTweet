@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="Service1" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://localhost:1400/Service1.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://localhost:1400/Service1.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:1400/Service1.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/PolyTweetWCF" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IServicePolyTweet_GetData_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetData" />
+  </wsdl:message>
+  <wsdl:message name="IServicePolyTweet_GetData_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicePolyTweet_GetDataUsingDataContract_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetDataUsingDataContract" />
+  </wsdl:message>
+  <wsdl:message name="IServicePolyTweet_GetDataUsingDataContract_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetDataUsingDataContractResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicePolyTweet_Connexion_InputMessage">
+    <wsdl:part name="parameters" element="tns:Connexion" />
+  </wsdl:message>
+  <wsdl:message name="IServicePolyTweet_Connexion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ConnexionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicePolyTweet_ajouterUtilisateur_InputMessage">
+    <wsdl:part name="parameters" element="tns:ajouterUtilisateur" />
+  </wsdl:message>
+  <wsdl:message name="IServicePolyTweet_ajouterUtilisateur_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ajouterUtilisateurResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicePolyTweet_supprimerUtilisateur_InputMessage">
+    <wsdl:part name="parameters" element="tns:supprimerUtilisateur" />
+  </wsdl:message>
+  <wsdl:message name="IServicePolyTweet_supprimerUtilisateur_OutputMessage">
+    <wsdl:part name="parameters" element="tns:supprimerUtilisateurResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicePolyTweet_findUtilisateur_InputMessage">
+    <wsdl:part name="parameters" element="tns:findUtilisateur" />
+  </wsdl:message>
+  <wsdl:message name="IServicePolyTweet_findUtilisateur_OutputMessage">
+    <wsdl:part name="parameters" element="tns:findUtilisateurResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IServicePolyTweet">
+    <wsdl:operation name="GetData">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicePolyTweet/GetData" message="tns:IServicePolyTweet_GetData_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicePolyTweet/GetDataResponse" message="tns:IServicePolyTweet_GetData_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDataUsingDataContract">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicePolyTweet/GetDataUsingDataContract" message="tns:IServicePolyTweet_GetDataUsingDataContract_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicePolyTweet/GetDataUsingDataContractResponse" message="tns:IServicePolyTweet_GetDataUsingDataContract_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Connexion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicePolyTweet/Connexion" message="tns:IServicePolyTweet_Connexion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicePolyTweet/ConnexionResponse" message="tns:IServicePolyTweet_Connexion_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ajouterUtilisateur">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicePolyTweet/ajouterUtilisateur" message="tns:IServicePolyTweet_ajouterUtilisateur_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicePolyTweet/ajouterUtilisateurResponse" message="tns:IServicePolyTweet_ajouterUtilisateur_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="supprimerUtilisateur">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicePolyTweet/supprimerUtilisateur" message="tns:IServicePolyTweet_supprimerUtilisateur_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicePolyTweet/supprimerUtilisateurResponse" message="tns:IServicePolyTweet_supprimerUtilisateur_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="findUtilisateur">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicePolyTweet/findUtilisateur" message="tns:IServicePolyTweet_findUtilisateur_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicePolyTweet/findUtilisateurResponse" message="tns:IServicePolyTweet_findUtilisateur_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IServicePolyTweet" type="tns:IServicePolyTweet">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetData">
+      <soap:operation soapAction="http://tempuri.org/IServicePolyTweet/GetData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDataUsingDataContract">
+      <soap:operation soapAction="http://tempuri.org/IServicePolyTweet/GetDataUsingDataContract" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Connexion">
+      <soap:operation soapAction="http://tempuri.org/IServicePolyTweet/Connexion" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ajouterUtilisateur">
+      <soap:operation soapAction="http://tempuri.org/IServicePolyTweet/ajouterUtilisateur" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="supprimerUtilisateur">
+      <soap:operation soapAction="http://tempuri.org/IServicePolyTweet/supprimerUtilisateur" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="findUtilisateur">
+      <soap:operation soapAction="http://tempuri.org/IServicePolyTweet/findUtilisateur" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Service1">
+    <wsdl:port name="BasicHttpBinding_IServicePolyTweet" binding="tns:BasicHttpBinding_IServicePolyTweet">
+      <soap:address location="http://localhost:1400/Service1.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
