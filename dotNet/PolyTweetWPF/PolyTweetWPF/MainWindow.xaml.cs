@@ -65,7 +65,6 @@ namespace PolyTweetWPF
                 newcanalLabel.Visibility = Visibility.Visible;
                 newCanalTag.Visibility = Visibility.Visible;
                 informationCreationCanal.Visibility = Visibility.Hidden;
-               // DataGridMessage.Margin = new Thickness(10,350,10,10);
             }
             else
             {

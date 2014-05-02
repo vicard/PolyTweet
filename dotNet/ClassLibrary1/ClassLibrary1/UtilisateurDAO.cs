@@ -69,13 +69,17 @@ namespace ClassLibrary1
         {
             using (PolytweetModele modele = new PolytweetModele())
             {
-                modele.Utilisateur.Add(new Utilisateur
+                if (log != "anonyme")
                 {
-                    login = log,
-                    password = pwd
-                });
+                    modele.Utilisateur.Add(new Utilisateur
+                    {
+                        login = log,
+                        password = pwd
+                    });
+                }
                 try
                 {
+                    if (log == "anonyme") return false;
                     modele.SaveChanges();
                     return true;
                 }
