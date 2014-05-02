@@ -63,6 +63,10 @@ namespace PolyTweetWPF
                 newMessageBox.Visibility = Visibility.Visible;
                 newMessageLabel.Visibility = Visibility.Visible;
                 newMessageButton.Visibility = Visibility.Visible;
+                newCanalButton.Visibility = Visibility.Visible;
+                newCanalIsPublic.Visibility = Visibility.Visible;
+                newcanalLabel.Visibility = Visibility.Visible;
+                newCanalTag.Visibility = Visibility.Visible;
                 DataGridMessage.Margin = new Thickness(10,350,10,10);
             }
             foreach (var c in canaux)
@@ -75,7 +79,7 @@ namespace PolyTweetWPF
 
         private void refreshMessages(object sender, RoutedEventArgs e)
         {
-            DataGridMessage.ItemsSource = canaux[ComboBoxCanaux.SelectedItem.ToString()].messages;
+            DataGridMessage.ItemsSource = canaux[ComboBoxCanaux.SelectedItem.ToString()].messages.AsParallel();
         }
 
         private void buttonConnexion_Click(object sender, RoutedEventArgs e)

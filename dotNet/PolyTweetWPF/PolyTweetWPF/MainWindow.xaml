@@ -5,10 +5,10 @@
     <Grid>
         <Label Content="" Margin="100,45,200,590" Name="labelCoucou" />
         <Button Content="Se Connecter" Margin="430,40,60,590" Name="buttonConnexion" Click="buttonConnexion_Click" />
-        <Label Content="Tag : " Margin="50,100,490,535"/>
-        <TextBox Name="newCanalTag" Margin="100,100,300,535" />
-        <CheckBox Name="newCanalIsPublic" Content="canal public ?" Margin="310,110,150,535"/>
-        <Button Content="Créer le canal" Margin="430,100,60,535" Click="buttonCreerCanal_Click" />
+        <Label Name ="newcanalLabel" Content="Tag : " Margin="50,100,490,535" Visibility="Hidden" />
+        <TextBox Name="newCanalTag" Margin="100,100,300,535" Visibility="Hidden" />
+        <CheckBox Name="newCanalIsPublic" Content="canal public ?" Margin="310,110,150,535" Visibility="Hidden" />
+        <Button Name="newCanalButton" Content="Créer le canal" Margin="430,100,60,535" Click="buttonCreerCanal_Click" Visibility="Hidden" />
         <Label Content="" Margin="50,140,50,490" Name="ResultCreationCanal"/>
         <Label Content="Selectionner un canal :" Margin="50,180,400,450" Name="labelLogin" />
         <ComboBox x:Name="ComboBoxCanaux" Margin="200,180,60,460" SelectionChanged="refreshMessages"/>
