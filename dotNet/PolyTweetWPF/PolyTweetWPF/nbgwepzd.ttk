@@ -13,8 +13,7 @@
         <Label Content="Selectionner un canal :" Margin="50,180,400,450" Name="labelLogin" />
         <ComboBox x:Name="ComboBoxCanaux" Margin="200,180,60,460" SelectionChanged="refreshMessages"/>
         <Label Name="newMessageLabel" Content="Nouveau message :" Margin="50,230,400,400" Visibility="Hidden" />
-        <Button Name="newMessageButton" Content="Publier" Margin="60,270,450,370" Click="buttonNewMessage_Click" Visibility="Hidden" />
-        <TextBox Name="newMessageBox" Margin="200,230,60,330" Visibility="Hidden" />
-        <DataGrid Name="DataGridMessage" Margin="10,230,10,10" />
+        <TextBox Name="newMessageBox" Margin="200,230,60,330" Visibility="Hidden"/>
+        <DataGrid Name="DataGridMessage" Margin="10,350,10,10" AutoGenerateColumns="True"/>
     </Grid>
 </Window>

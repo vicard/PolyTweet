@@ -9,8 +9,8 @@ namespace PolyTweetWPF
     public class Message
     {
         public string auteur { get; set; }
-        public string texte { get; set; }
         public DateTime date { get; set; }
+        public string texte { get; set; }
 
         public Message(string auteur, DateTime date, string texte)
         {
