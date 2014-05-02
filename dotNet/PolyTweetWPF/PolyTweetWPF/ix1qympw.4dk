@@ -19,17 +19,16 @@ namespace PolyTweetWPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        private string login;
+        public string login;
 
-        private Message m1;
-        private Message m2;
-        private Message m3;
-        private Message m4;
-        private Canal c1;
-        private Canal c2;
-        private Canal c3;
-
-        private Dictionary<string, Canal> canaux;
+        public Message m1;
+        public Message m2;
+        public Message m3;
+        public Message m4;
+        public Canal c1;
+        public Canal c2;
+        public Canal c3;
+        public List<Canal> canaux;
         private void InitData()
         {
 
@@ -45,13 +44,13 @@ namespace PolyTweetWPF
             c2.addMessage(m2);
             c2.addMessage(m3);
             c3 = new Canal("canal prive 1", false);
-            c3.addMessage(m1);
-            c3.addMessage(m4);
+            c1.addMessage(m1);
+            c1.addMessage(m4);
 
-            canaux = new Dictionary<string, Canal>();
-            canaux.Add(c1.tag, c1);
-            canaux.Add(c2.tag, c2);
-            canaux.Add(c3.tag, c3);
+            canaux = new List<Canal>();
+            canaux.Add(c1);
+            canaux.Add(c2);
+            canaux.Add(c3);
         }
 
         public MainWindow() : this("")
@@ -59,43 +58,24 @@ namespace PolyTweetWPF
 
         public MainWindow(string login)
         {
-            this.login = login;
             InitializeComponent();
             InitData();
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
 
-            if (login != "")
+            ComboBoxCanaux.Items.Add(c1.tag);
+/*            ComboBoxCanaux.ItemsSource = CanauxPublic.Keys;
+            foreach (string s in m1.Keys)
             {
-                labelCoucou.Content = "Bienvenue, " + login + " !";
-                buttonConnexion.Content = "Se déconnecter";
+                this.DataGridMessage.Columns.Add(new DataGridTextColumn { Header = s });
             }
-            foreach (var c in canaux)
-            {
-                if (c.Value.isPublic || login != "")
-                    ComboBoxCanaux.Items.Add(c.Key);
-            }
-
+            this.DataGridMessage.ItemsSource = m1;*/
         }
-
-        private void refreshMessages(object sender, RoutedEventArgs e)
-        {
-            DataGridMessage.ItemsSource = canaux[ComboBoxCanaux.SelectedItem.ToString()].messages;
-        }
-
         private void buttonConnexion_Click(object sender, RoutedEventArgs e)
         {
-            if (login == "")
-            {
-                LoginWindow loginWindow = new LoginWindow();
-                this.Close();
-                loginWindow.Show();
-            }
-            else
-            {
-                MainWindow mainWindow = new MainWindow();
-                this.Close();
-                mainWindow.Show();
-            }
+            labelCoucou.Content = "test";
+            LoginWindow loginWindow = new LoginWindow();
+            this.Close();
+            loginWindow.Show();
         }
     }
 }

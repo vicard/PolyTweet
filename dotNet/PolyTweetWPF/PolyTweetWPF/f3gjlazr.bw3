@@ -38,15 +38,15 @@ namespace PolyTweetWPF
             m3 = new Message("toi", DateTime.Now.AddMonths(-1), "message 3");
             m4 = new Message("admin", DateTime.Now.AddDays(-10), "message 4");
 
-            c1 = new Canal("canal public 1", true);
+            c1 = new Canal("canal 1", true);
             c1.addMessage(m1);
             c1.addMessage(m2);
-            c2 = new Canal("canal public 2", true);
+            c2 = new Canal("canal 2", true);
             c2.addMessage(m2);
             c2.addMessage(m3);
-            c3 = new Canal("canal prive 1", false);
-            c3.addMessage(m1);
-            c3.addMessage(m4);
+            c3 = new Canal("canal 3", false);
+            c1.addMessage(m1);
+            c1.addMessage(m4);
 
             canaux = new Dictionary<string, Canal>();
             canaux.Add(c1.tag, c1);
@@ -65,37 +65,34 @@ namespace PolyTweetWPF
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
 
             if (login != "")
-            {
                 labelCoucou.Content = "Bienvenue, " + login + " !";
-                buttonConnexion.Content = "Se déconnecter";
-            }
+
             foreach (var c in canaux)
             {
                 if (c.Value.isPublic || login != "")
                     ComboBoxCanaux.Items.Add(c.Key);
             }
+            DataGridMessage.ItemsSource = canaux["canal prive 1"].messages;
 
+            /*            ComboBoxCanaux.ItemsSource = CanauxPublic.Keys;
+            foreach (string s in m1.Keys)
+            {
+                this.DataGridMessage.Columns.Add(new DataGridTextColumn { Header = s });
+            }
+            this.DataGridMessage.ItemsSource = m1;*/
         }
 
         private void refreshMessages(object sender, RoutedEventArgs e)
         {
-            DataGridMessage.ItemsSource = canaux[ComboBoxCanaux.SelectedItem.ToString()].messages;
+            DataGridMessage.ItemsSource = canaux["canal public 1"].messages;
         }
 
         private void buttonConnexion_Click(object sender, RoutedEventArgs e)
         {
-            if (login == "")
-            {
-                LoginWindow loginWindow = new LoginWindow();
-                this.Close();
-                loginWindow.Show();
-            }
-            else
-            {
-                MainWindow mainWindow = new MainWindow();
-                this.Close();
-                mainWindow.Show();
-            }
+            labelCoucou.Content = "test";
+            LoginWindow loginWindow = new LoginWindow();
+            this.Close();
+            loginWindow.Show();
         }
     }
 }

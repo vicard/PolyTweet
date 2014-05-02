@@ -27,26 +27,32 @@ namespace PolyTweetWPF
             WindowStartupLocation = System.Windows.WindowStartupLocation.CenterScreen;
             client = new Service1.ServicePolyTweetClient();
         }
+
+        private void retourMain(string login)
+        {
+            MainWindow mainWindow = new MainWindow(login);
+            mainWindow.Show();
+            this.Close();
+        }
+
         private void buttonConnexion_Click(object sender, RoutedEventArgs e)
         {
             if (client.Connexion(textBoxLogin.Text, passwordBoxPassword.Password))
-                ErrorLabel.Content = "Connexion réussie : Bonjour " + textBoxLogin.Text;
+                retourMain(textBoxLogin.Text);
             else
-                ErrorLabel.Content = "Connexion échouée";
+                ErrorLabel.Content = "Pseudo ou mot de passe incorrect";
         }
         private void buttonInscription_Click(object sender, RoutedEventArgs e)
         {
             if (client.ajouterUtilisateur(textBoxLogin.Text, passwordBoxPassword.Password))
                 ErrorLabel.Content = "Inscription réussie";
             else
-                ErrorLabel.Content = "Inscription échouée";
+                ErrorLabel.Content = "Inscription échouée : pseudo déjà utilisé";
 
         }
         private void buttonAnnuler_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow mainWindow = new MainWindow();
-            mainWindow.Show();
-            this.Close();
+            retourMain("");
         }
 
     }
