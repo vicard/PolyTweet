@@ -26,7 +26,6 @@ WebContent
 bin/
 tmp/
 *.tmp
-*.bak
 *.swp
 *~.nib
 local.properties
